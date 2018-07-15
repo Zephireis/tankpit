@@ -1,1 +1,1 @@
-worker: node tankpit.py
+worker: python tankpit.py
