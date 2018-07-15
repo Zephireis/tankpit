@@ -33,16 +33,10 @@ async def eight_ball(context):
     ]
     await client.say(random.choice(possible_responses) + "," + context.message.author.mention)
 
+@client.command(aliases=[hi])
+asunc def hello(ctx)
+await ctx.send("dont talk to me fagget")
 
-@client.event(name='Alzan1')
-async def on_message():
-  if message.content == "hi":
-   if message.author.id == ('107678929925484544'):
-    choicesa = (,'dont talk to me fagget')
-    await client.say(random.choice(choicesa))
-  elif message.author.id == ('80971950054187008'):
-    choicesl = ('lauren...', 'hi. lauren.')
-    await client.say(random.choice(choicesl))
 
 
 
