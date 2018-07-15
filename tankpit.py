@@ -21,7 +21,7 @@ async def eight_ball(context):
 
     possible_responses = [
     'okay',
-    'sure',
+    'totally',
     'no',
     'huh',
     'idc',
