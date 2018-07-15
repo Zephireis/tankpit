@@ -31,6 +31,12 @@ async def eight_ball(context):
 
     ]
     await client.say(random.choice(possible_responses) + "," + context.message.author.mention)
+    
+    
+ @client.command(name='Alzan',
+                 if data == 'hi':
+    say('dont talk to me fagget')
+  
 
 @client.event
 async def on_ready():
