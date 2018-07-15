@@ -34,7 +34,7 @@ async def eight_ball(context):
     await client.say(random.choice(possible_responses) + "," + context.message.author.mention)
 
 
-@client.event(name='Alzan')
+@client.event(name='Alzan1')
 async def on_message():
   if message.content == "hi":
    if message.author.id == ('107678929925484544'):
