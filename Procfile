@@ -1,1 +1,1 @@
-worker: python tankpit.py
+worker: node index.js
