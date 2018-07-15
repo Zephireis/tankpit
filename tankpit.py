@@ -19,13 +19,13 @@ client = Bot (command_prefix=BOT_PREFIX)
 async def eight_ball(context):
 
     possible_responses = [
-    'okay',
-    'sure',
-    'no',
-    'huh',
-    'idc',
-    'thats lame',
-    'yeah',
+    'okay'
+    'sure'
+    'no'
+    'huh'
+    'idc'
+    'thats lame'
+    'yeah'
 
     ]
     await client.say(random.choice(possible_responses) + "," + context.message.author.mention)
