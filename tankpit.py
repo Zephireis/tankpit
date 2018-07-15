@@ -11,7 +11,7 @@ TOKEN = "Mjc3NTc1MTQwOTc0MjY0MzMz.DizE0g.rkkhFclCMNBYW6whhgd0_EKIZHY"
 
 client = Bot (command_prefix=BOT_PREFIX)
 
-@client.command(name='Alzan',
+@client.command(name='Alzanbot',
                 description="Answers = a yes/no question with typical alzan responses.",
                 brief="Answers from Alzan the great.",
                 pass_context=True)
