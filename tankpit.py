@@ -26,6 +26,8 @@ async def eight_ball(context):
     'idc'
     'thats lame'
     'yeah'
+    'dont do that'
+    'no that sucks'
 
     ]
     await client.say(random.choice(possible_responses) + "," + context.message.author.mention)
