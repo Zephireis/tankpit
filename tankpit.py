@@ -1,6 +1,7 @@
 import random
 import asyncio
 import aiohttp
+import commands
 
 from discord import Game
 from discord.ext.commands import Bot
