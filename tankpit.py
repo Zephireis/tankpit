@@ -1,5 +1,4 @@
 import random
-import requests
 import asyncio
 import aiohttp
 
@@ -35,23 +34,9 @@ async def on_ready():
     print("logged in as" + client.user.name)
 
 
-@client.command()
-async def bitcoin():
-    url = 'https://api.coindesk.com/v1/bpi/currentprice/BTC.json'
-    response = requests.get(url)
-    value = response.json() ['bpi']['USD']['rate']
-    await client.say("Bitcoin price is: $" + value)
 
 
 
-async def fetch(session, url):
-    async with session.get(url) as response:
-        return await response.text()
-
-async def main():
-    async with aiohttp.ClientSession() as session:
-        html = await fetch(session, 'http://python.org')
-        print("html")
 
 
 
