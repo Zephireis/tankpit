@@ -41,7 +41,7 @@ async def hello():
     
     
     
-    @client.command(pass_context=True)
+@client.command(pass_context=True)
 async def serverinfo(ctx):
         embed = discord.Embed(name="{}'s info".format(ctx.message.server.name), description="heres the info okay...", color=0x00ff00)
         embed.set_author(name="Servers Info")
