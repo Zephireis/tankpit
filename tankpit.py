@@ -31,29 +31,17 @@ async def eight_ball(context):
     'totally'
 
     ]
-    await client.say(random.choice(possible_responses) + " " + context.message.author.mention)
-    
-    
-@client.command
-async def hi():
-    await client.say("dont talk to me faggot")
+    await client.say(random.choice(possible_responses) + " " + context.message.author.mention)  
 
     
     
-
-  
+    
 @client.event
 async def on_ready():
     await client.change_presence(game=Game(name="With Kassondra"))
     print("logged in as" + client.user.name)
     
-
-
-
-
-
-
-
-
-
+    
+    
+    
 client.run(TOKEN)
