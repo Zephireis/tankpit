@@ -43,7 +43,7 @@ async def hello():
     
     
     
- @client.command(pass_context=True)
+@client.command(pass_context=True)
 async def help(ctx):
        embed = discord.Embed(title="Use '!' to Active Alzan2.7 Commands", description="Alzan27 Commands:", color=0xeee657)
        embed.add_field(name="!Alzan", value="Answers a question 8Ball style", inline=False)
