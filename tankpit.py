@@ -1,13 +1,12 @@
 import random
 import asyncio
 import aiohttp
-import commands
 
 from discord import Game
 from discord.ext.commands import Bot
 
 BOT_PREFIX = "*"
-TOKEN = "Mjc3NTc1MTQwOTc0MjY0MzMz.DizE0g.rkkhFclCMNBYW6whhgd0_EKIZHY"
+TOKEN = "Mjc3NTc1MTQwOTc0MjY0MzMz.Di2NZw.sTh4UY617WFtVQ1a-NDJCi1jWsgY"
 
 client = Bot (command_prefix=BOT_PREFIX)
 
