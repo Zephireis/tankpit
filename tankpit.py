@@ -46,10 +46,10 @@ async def hello():
 @client.command(pass_context=True)
 async def help(ctx):
        embed = discord.Embed(title="Use '!' to Active Alzan2.7 Commands", description="Alzan27 Commands:", color=0xeee657)
-       embed.add_field(name="!Alzan", value="Answers a question 8Ball style", inline=False)
+       embed.add_field(name="!Alzan", value="Alzan Answers a question 8Ball style", inline=False)
        embed.add_field(name="!hello", value="Gives a nice greet message", inline=False)
-       embed.add_field(name="!serverinfo", value="Gives a cute cat gif to lighten up the mood.", inline=False)
-       embed.add_field(name="!info @(namehere)", value="Gives a little info about the bot", inline=False)
+       embed.add_field(name="!serverinfo", value="gives info for the server.", inline=False)
+       embed.add_field(name="!info @(namehere)", value="Gives a little info about a user", inline=False)
        embed.add_field(name="!help", value="Gives this message", inline=False)
        await client.say(embed=embed)   
     
