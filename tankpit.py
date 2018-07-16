@@ -34,6 +34,12 @@ async def eight_ball(context):
     await client.say(random.choice(possible_responses) + " " + context.message.author.mention)
     
     
+    
+@client.command()
+async def hello():
+    await client.say("dont talk to me faggot")
+    
+    
 
   
 
