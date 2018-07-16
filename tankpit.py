@@ -44,14 +44,16 @@ async def hello():
     
 @client.command(pass_context=True)
 async def serverinfo(ctx):
-        embed = discord.Embed(name="{}'s info".format(ctx.message.server.name), description="heres the info okay...", color=0x00ff00)
-        embed.set_author(name="Servers Info")
-        embed.add_field(name="Name", value=ctx.message.server.name, inline=True)
-        embed.add_field(name="ID", value=ctx.message.server.id, inline=True)
-        embed.add_field(name="Roles", value=len(ctx.message.server.roles), inline=True)
-        embed.add_field(name="Members", value=len(ctx.message.server.members))
-        embed.set_thumbnail(url=ctx.message.server.icon_url)
-        await client.say(embed=embed)
+       embed = discord.Embed(title="Alzan2.7", description="Dont talk to me", color=0x00ff00)
+       embed.add_field(name="Author", value="Zephireis#8995")
+       embed.add_field(name="Name", value=ctx.message.server.name, inline=True)
+       embed.add_field(name="ID", value=ctx.message.server.id, inline=True)
+       embed.add_field(name="Roles", value=len(ctx.message.server.roles), inline=True)
+       embed.add_field(name="Members", value=len(ctx.message.server.members))
+       embed.add_field(name="Server count", value=f"{len(client.servers)}")
+       embed.add_field(name="Invite", value="[https://discordapp.com/api/oauth2/authorize?client_id=277575140974264333&scope=bot&permissions=1](https://discordapp.com/api/oauth2/authorize?client_id=277575140974264333&permissions=67632193&scope=bot)")
+       embed.set_thumbnail(url=ctx.message.server.icon_url)
+       await client.say(embed=embed)
 
 
 
