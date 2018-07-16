@@ -31,11 +31,10 @@ async def eight_ball(context):
     'no that sucks',
 
     ]
-   await client.say(random.choice(possible_responses) + "." + context.message.author.mention)
+    
+    await client.say(random.choice(possible_responses) + "," + context.message.author.mention)
 
-@client.command(aliases=[hi])
-asunc def hello(ctx)
-await ctx.send("dont talk to me fagget")
+
 
 
 
