@@ -36,7 +36,6 @@ async def eight_ball(context):
     
 
   
-
 @client.event
 async def on_ready():
     await client.change_presence(game=Game(name="With Kassondra"))
