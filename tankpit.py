@@ -43,7 +43,7 @@ async def on_ready():
     
 
  @client.command()
-async def hi():
+async def hello():
     """Says world"""
     await client.say("dont talk to me faggot")
 
