@@ -40,10 +40,35 @@ async def hello():
     await client.say("dont talk to me faggot")
     
     
+    
+    @client.command(pass_context=True)
+async def serverinfo(ctx):
+        embed = discord.Embed(name="{}'s info".format(ctx.message.server.name), description="heres the info okay...", color=0x00ff00)
+        embed.set_author(name="Servers Info")
+        embed.add_field(name="Name", value=ctx.message.server.name, inline=True)
+        embed.add_field(name="ID", value=ctx.message.server.id, inline=True)
+        embed.add_field(name="Roles", value=len(ctx.message.server.roles), inline=True)
+        embed.add_field(name="Members", value=len(ctx.message.server.members))
+        embed.set_thumbnail(url=ctx.message.server.icon_url)
+        await client.say(embed=embed)
 
-  
 
-@client.event
+
+@client.command(pass_context=True)
+async def info(ctx, user: discord.Member):
+        embed = discord.Embed(title="{}'s info".format(user.name), description="okay.", color=0x00ff00)
+        embed.add_field(name="Name", value=user.name, inline=True)
+        embed.add_field(name="ID", value=user.id, inline=True)
+        embed.add_field(name="Status", value=user.status, inline=True)
+        embed.add_field(name="Highest role", value=user.top_role)
+        embed.add_field(name="Joined", value=user.joined_at)
+        embed.set_thumbnail(url=user.avatar_url)
+        await client.say(embed=embed)
+        
+        
+        
+
+        @client.event
 async def on_ready():
     await client.change_presence(game=Game(name="With Kassondra"))
     print("logged in as" + client.user.name)
