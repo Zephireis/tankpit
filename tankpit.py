@@ -32,7 +32,7 @@ async def eight_ball(context):
 
     ]
     
- await client.say(random.choice(possible_responses) + "," + context.message.author.mention)
+    await client.say(random.choice(possible_responses) + "," + context.message.author.mention)
 
 
 
