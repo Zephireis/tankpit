@@ -67,7 +67,6 @@ async def info(ctx, user: discord.Member):
         
         
         
-
 @client.event
 async def on_ready():
     await client.change_presence(game=Game(name="With Kassondra"))
