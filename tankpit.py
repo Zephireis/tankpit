@@ -68,7 +68,7 @@ async def info(ctx, user: discord.Member):
         
         
 
-        @client.event
+@client.event
 async def on_ready():
     await client.change_presence(game=Game(name="With Kassondra"))
     print("logged in as" + client.user.name)
