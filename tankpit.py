@@ -6,7 +6,7 @@ from discord import Game
 from discord.ext.commands import Bot
 
 BOT_PREFIX = "*"
-TOKEN = "Mjc3NTc1MTQwOTc0MjY0MzMz.Di2NZw.sTh4UY617WFtVQ1a-NDJCi1jWsgY"
+TOKEN = "Mjc3NTc1MTQwOTc0MjY0MzMz.Di2O3A.sDz1C5jZkHUnYMo7tV5fF2fwF8k"
 
 client = Bot (command_prefix=BOT_PREFIX)
 
