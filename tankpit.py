@@ -15,7 +15,7 @@ BOT_PREFIX = "."
 client = Bot (command_prefix=BOT_PREFIX)
 client.remove_command('help')
 
-TOKEN = "MMjcxMzcwODc3NzAxMDYyNjY3.Dj-Qcg.2RZMs7nRU5aK6EPq5DbVXAOk7wc"
+TOKEN = "MjcxMzcwODc3NzAxMDYyNjY3.Dj-Qcg.2RZMs7nRU5aK6EPq5DbVXAOk7wc"
 
 
 
@@ -722,16 +722,6 @@ async def site1():
     embed.set_author(name="Enjin Site Stats by Zephireis#8995",icon_url='http://esportsobserver.com/wp-content/uploads/2015/05/enjin_logo_squared.png')
     embed.set_footer(text='Website powered by Enjin')
     await client.say(embed=embed)
-    
-    
-    await client.say(embed=embed)
-
-
-
-@client.event
-async def on_ready():
-    await client.change_presence(game=Game(name="Bruh"))
-    print("logged in as" + 
 
 
 
