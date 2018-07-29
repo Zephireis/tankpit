@@ -7,7 +7,7 @@ from discord import Game
 from discord.ext.commands import Bot
 
 BOT_PREFIX = "!"
-TOKEN = "Mjc3NTc1MTQwOTc0MjY0MzMz.Di2RBQ.7ykAa_A8V5Y8eVEGxsApig_F-SA"
+TOKEN = "MjcxMDcxMDg2NTU1Mjk5ODQw.Dj-OEA.bLoFOlFfyafSHHQJGxfTX01Iq2Y"
 
 client = Bot (command_prefix=BOT_PREFIX)
 client.remove_command('help')
@@ -34,15 +34,15 @@ async def eight_ball(context):
 
     ]
     await client.say(random.choice(possible_responses) + " " + context.message.author.mention)
-    
-    
-    
+
+
+
 @client.command()
 async def hello():
     await client.say("dont talk to me faggot")
-    
-    
-    
+
+
+
 @client.command(pass_context=True)
 async def help(ctx):
        embed = discord.Embed(title="Use '!' to Active Alzan2.7 Commands", description="Alzan27 Commands:", color=0xeee657)
@@ -51,10 +51,10 @@ async def help(ctx):
        embed.add_field(name="!serverinfo", value="gives info for the server.", inline=False)
        embed.add_field(name="!info @(namehere)", value="Gives a little info about a user", inline=False)
        embed.add_field(name="!help", value="Gives this message", inline=False)
-       await client.say(embed=embed)   
-    
-    
-    
+       await client.say(embed=embed)
+
+
+
 @client.command(pass_context=True)
 async def serverinfo(ctx):
        embed = discord.Embed(title="Alzan2.7", description="Dont talk to me", color=0x00ff00)
@@ -80,9 +80,9 @@ async def info(ctx, user: discord.Member):
         embed.add_field(name="Joined", value=user.joined_at)
         embed.set_thumbnail(url=user.avatar_url)
         await client.say(embed=embed)
-        
-        
-        
+
+
+
 @client.event
 async def on_ready():
     await client.change_presence(game=Game(name="With Kassondra"))
