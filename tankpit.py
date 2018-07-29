@@ -15,7 +15,7 @@ BOT_PREFIX = "."
 client = Bot (command_prefix=BOT_PREFIX)
 client.remove_command('help')
 
-TOKEN = "MjcxMzcwODc3NzAxMDYyNjY3.Djo1gw.4kHxnBo0boRs2cZwetiNsBzUmc4"
+TOKEN = "MMjcxMzcwODc3NzAxMDYyNjY3.Dj-Qcg.2RZMs7nRU5aK6EPq5DbVXAOk7wc"
 
 
 
