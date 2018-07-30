@@ -15,7 +15,7 @@ BOT_PREFIX = "."
 client = Bot (command_prefix=BOT_PREFIX)
 client.remove_command('help')
 
-TOKEN = ""
+client.run(os.getenv('TOKEN'))
 
 
 
