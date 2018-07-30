@@ -3,7 +3,6 @@ import discord
 import asyncio
 import aiohttp
 import json
-import requests
 import html5lib
 
 from discord import Game
