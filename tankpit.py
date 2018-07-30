@@ -3,7 +3,7 @@ import discord
 import asyncio
 import aiohttp
 import json
-import html5lib
+
 
 from discord import Game
 from bs4 import BeautifulSoup
