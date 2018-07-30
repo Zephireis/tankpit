@@ -15,10 +15,11 @@ from discord.ext.commands import Bot
 
 
 BOT_PREFIX = "."
-client.run(os.getenv('TOKEN'))
+
 
 client = Bot(command_prefix=BOT_PREFIX)
 client.remove_command('help')
+client.run(os.getenv('TOKEN'))
 
 
 #-------FUN COMMANDS--------------
