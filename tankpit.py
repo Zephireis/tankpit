@@ -6,7 +6,7 @@ import json
 
 
 from discord import Game
-from bs4 import BeautifulSoup
+
 from discord.ext.commands import Bot
 
 BOT_PREFIX = "."
