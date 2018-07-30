@@ -1,6 +1,6 @@
-echo discord.py==0.16.12
-echo aiohttp==1.0.5
-echo async-timeout==3.0.0
-echo beautifulsoup4==4.6.0
-echo html5lib==1.0.1
-echo requests==2.19.1
+discord.py==0.16.12
+aiohttp==1.0.5
+async-timeout==3.0.0
+beautifulsoup4==4.6.0
+html5lib==1.0.1
+requests==2.19.1
