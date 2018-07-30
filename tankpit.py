@@ -13,13 +13,12 @@ from discord.ext.commands import Bot
 
 
 
-
+TOKEN = "MjcxMzcwODc3NzAxMDYyNjY3.Dj_4UA.Fy2m_6Nby7jB535BrCpRZnbYD1w"
 BOT_PREFIX = "."
 
 
 client = Bot(command_prefix=BOT_PREFIX)
 client.remove_command('help')
-client.run(os.getenv('TOKEN'))
 
 
 #-------FUN COMMANDS--------------
