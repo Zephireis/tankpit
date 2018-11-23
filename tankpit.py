@@ -250,7 +250,7 @@ data = soup.find(id="top25-page")
 
 #----------tankpit site stats commands---------
 @client.command(pass_context=True)
-async def activitynull():
+async def acti():
     embed = discord.Embed(title="", description="",  color =0xff0000)
     page= requests.get("https://tankpit.com")
     soup = BeautifulSoup(page.content, 'html.parser')
