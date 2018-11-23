@@ -298,11 +298,11 @@ async def activity():
 
         embed = discord.Embed(title="Active Games", description="Current players in game",  color =0xdd3d20)
         embed.set_thumbnail(url=f'{id}')
-        embed.add_field(name=f'{Name}', value=f'{map1}', inline=True)
-        embed.add_field(name="Players", value=resp[1]['playing_tanks'], inline=True)
-        embed.add_field(name="Practice", value=resp[0]['map'], inline=True)	
+        embed.add_field(name=f'{Name}', value=f'{map0}', inline=True)
         embed.add_field(name="Players", value=resp[0]['playing_tanks'], inline=True)
-        embed.add_field(name="Waiting Players", value=resp[0]['waiting_tanks'], inline=True)
+        embed.add_field(name="Practice", value=resp[1]['map'], inline=True)	
+        embed.add_field(name="Players", value=resp[1]['playing_tanks'], inline=True)
+        embed.add_field(name="Waiting Players", value=resp[1]['waiting_tanks'], inline=True)
         await client.say(embed=embed)
 
 
