@@ -273,11 +273,12 @@ async def activity():
     async with aiohttp.ClientSession()as session:
         response = await session.get('https://tankpit.com/api/active_games')
         resp = await response.json()
-        map1=resp[1]['map']
+        map1=resp[0]['map']
         players=resp[1]['playing_tanks']
-        Name=resp[1]["name"]
-        
-        id=resp[1]['name']
+        Name=resp[0]["name"]
+        map0=resp[1]['map']
+        players0=resp[1]['playing_tanks']
+        id=resp[0]['name']
         MINIMAP = {
         'World (Rocks and Swamp)': 'https://tankpit.com/images/maps/field01.gif',
         'World (The Nile)': 'https://tankpit.com/images/maps/field13.gif',
