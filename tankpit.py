@@ -276,8 +276,7 @@ async def activity():
         map1=resp[1]['map']
         players=resp[1]['playing_tanks']
         Name=resp[1]["name"]
-        map0=resp[0]['map']
-        players0=resp[0]['playing_tanks']
+        
         id=resp[1]['name']
         MINIMAP = {
         'World (Rocks and Swamp)': 'https://tankpit.com/images/maps/field01.gif',
@@ -300,6 +299,8 @@ async def activity():
         embed.set_thumbnail(url=f'{id}')
         embed.add_field(name=f'{Name}', value=f'{map1}', inline=True)
         embed.add_field(name="Players", value=resp[1]['playing_tanks'], inline=True)
+        embed.add_field(name="Practice", value=resp[0]['map'], inline=True)	
+        embed.add_field(name="Players", value=resp[0]['playing_tanks'], inline=True)
         embed.add_field(name="Waiting Players", value=resp[0]['waiting_tanks'], inline=True)
         await client.say(embed=embed)
 
