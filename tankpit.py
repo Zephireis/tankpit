@@ -15,7 +15,7 @@ from discord.ext.commands import Bot
 
 
 
-TOKEN = "MjcxMzcwODc3NzAxMDYyNjY3.Dx0VRg.oSWJKxIsXnyQ8IJav2V6N04i9h"
+TOKEN = "MjcxMzcwODc3NzAxMDYyNjY3.Dx0VRg.oSWJKxIsXnyQ8IJav2V6N04i9hc"
 BOT_PREFIX = ".","?"
 
 
