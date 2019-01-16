@@ -597,7 +597,7 @@ async def on_ready():
         soup = BeautifulSoup(page.content, 'html.parser')
         data = soup.find(id="hero-activity")
         activity = data("p")[0].get_text()
-        await client.change_presence(game=Game(name=f'{activity}'))
+        await client.change_presence(game=Game(name="TankPit"))
         await asyncio.sleep(5)
 
 
