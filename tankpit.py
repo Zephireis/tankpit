@@ -6,6 +6,8 @@ import requests
 import json
 import html5lib
 import os
+import asyncio
+import threading
 
 from discord import Game
 from bs4 import BeautifulSoup
@@ -19,6 +21,8 @@ BOT_PREFIX = ".","?"
 
 client = Bot(command_prefix=BOT_PREFIX)
 client.remove_command('help')
+
+
 
 
 #-------FUN COMMANDS--------------
@@ -83,7 +87,7 @@ async def tpa(tank_name):
 
         awards_dict = {0: '', 1: '🙃', 2: '🤣', 3: '😃'}# set one through three for value 1 in json
         awards_string = ''
-        for awards in resp_json[0]["awards"][0:1]:
+        for awards in resp_json[0]["awards"][0:3]:
             awards_string += awards_dict.get(awards,'' )
         await client.say(awards_string)
 
@@ -179,6 +183,12 @@ async def id(tank_id):
         await client.say(embed=embed)
 
 
+#r = requests.get('https://tankpit.com/api/tank?tank_id=3582')
+#r.get("last_played", "\u200b")
+#print(r.json)
+#@client.command()
+#async def ht():
+#await client.say(lastplayed)
 
 
 
@@ -191,59 +201,6 @@ async def id(tank_id):
 
 
 
-
-#-------INSTALLATION 01-------------
-@client.command(pass_context=True)
-async def i01():
-    embed = discord.Embed(title="INSTALLATION 01 STATS", url="https://installation01.org/soon",  color =0xdd3d20)
-    embed.set_thumbnail(url="https://pbs.twimg.com/profile_images/989667244929044480/byfkjFPt_400x400.jpg")
-    page= requests.get("https://installation01.org/")
-    soup = BeautifulSoup(page.content, 'html.parser')
-    data = soup.find("a", {"class": "box"})
-    spartans = data()[4].get_text()
-    games = data()[7].get_text()
-    allspartans = data()[10].get_text()
-    allgame =data()[13].get_text()
-
-    embed.add_field(name="Spartans (24hr)", value=spartans, inline=True)
-    embed.add_field(name="Games (24hr)", value=games, inline=True)
-    embed.add_field(name="Spartans(All Time)", value=allspartans, inline=True)
-    embed.add_field(name="Games(All Time)", value=allgame, inline=True)
-    embed.set_image(url='https://static.i01.co/blog/NewOrderConcept.jpg',)
-    await client.say(embed=embed)
-
-
-
-
-@client.command(pass_context=True)
-async def ed():
-    embed = discord.Embed(title="Eldewrito Stats", url="https://pre00.deviantart.net/e7f6/th/pre/f/2015/150/c/a/eldewrito_logo_blue_by_floodgrunt-d8vd5q5.png", color =0xdd3d20)
-    page = requests.get("http://halostats.click/leaderboard")
-    soup = BeautifulSoup(page.content, 'html.parser')
-    data = soup.find(class_="row")
-    games = data("div").get_text()
-
-
-    embed.add_field(name="Ranked", value=data, inline=True)
-    await client.say(embed=embed)
-
-
-
-#------TANKPITHQ----------
-@client.command(pass_context=True)#this works with class
-async def hq():
-    embed = discord.Embed(title="Eldewrito Stats", url="https://pre00.deviantart.net/e7f6/th/pre/f/2015/150/c/a/eldewrito_logo_blue_by_floodgrunt-d8vd5q5.png", color =0xdd3d20)
-    page = requests.get("https://tankpithq.enjin.com/profile/zephireis")
-    soup = BeautifulSoup(page.content, 'html.parser')
-    data = soup.find(class_="widget_tags_awards")
-    activity = data("div")[0].get_text()
-
-
-
-embed = discord.Embed(title="Top25 Current season (Live updates)", description="",  color =0x00e100)
-page= requests.get("https://tankpit.com/top25")
-soup = BeautifulSoup(page.content, 'html.parser')
-data = soup.find(id="top25-page")
 
 
 
@@ -300,7 +257,7 @@ async def activity():
         embed.set_thumbnail(url=f'{id}')
         embed.add_field(name=f'{Name}', value=f'{map0}', inline=True)
         embed.add_field(name="Players", value=resp[0]['playing_tanks'], inline=True)
-        embed.add_field(name="Practice", value=resp[1]['map'], inline=True)	
+        embed.add_field(name="Practice", value=resp[1]['map'], inline=True)
         embed.add_field(name="Players", value=resp[1]['playing_tanks'], inline=True)
         embed.add_field(name="Waiting Players", value=resp[1]['waiting_tanks'], inline=True)
         await client.say(embed=embed)
@@ -468,72 +425,88 @@ async def bbb(year,month,day):
 
 
 
+@client.command()
+async def season(year):
+    async with aiohttp.ClientSession()as session:
+        response = await session.get('https://tankpit.com/api/leaderboards/'+year)
+        resp = await response.json()
+        space ="\u200b"
+        leader= resp["leaderboard"]
+        awards0 = award_string(resp['results'][0]['awards'])
+        awards1 = award_string(resp['results'][1]['awards'])
+        awards2 = award_string(resp['results'][2]['awards'])
+        awards3 = award_string(resp['results'][3]['awards'])
+        awards4 = award_string(resp['results'][4]['awards'])
+        awards5 = award_string(resp['results'][5]['awards'])
+        awards6 = award_string(resp['results'][6]['awards'])
+        awards7 = award_string(resp['results'][7]['awards'])
+        awards8 = award_string(resp['results'][8]['awards'])
+        awards9 = award_string(resp['results'][9]['awards'])
+        awards10 = award_string(resp['results'][10]['awards'])
+        tank0 = resp["results"][0]["name"]
+        tank1 = resp["results"][1]["name"]
+        tank2 = resp["results"][2]["name"]
+        tank3 = resp["results"][3]["name"]
+        tank4 = resp["results"][4]["name"]
+        tank5 = resp["results"][5]["name"]
+        tank6 = resp["results"][6]["name"]
+        tank7 = resp["results"][7]["name"]
+        tank8 = resp["results"][8]["name"]
+        tank9 = resp["results"][9]["name"]
+        tank10 = resp["results"][10]["name"]
+        color0 = resp['results'][0]["color"]
+        color1 = resp['results'][1]["color"]
+        color2 = resp['results'][2]["color"]
+        color3 = resp['results'][3]["color"]
+        color4 = resp['results'][4]["color"]
+        color5 = resp['results'][5]["color"]
+        color6 = resp['results'][6]["color"]
+        color7 = resp['results'][7]["color"]
+        color8 = resp['results'][8]["color"]
+        color9 = resp['results'][9]["color"]
+        color10 = resp['results'][10]["color"]
+        place0 = resp['results'][0]["placing"]
+        place1 = resp['results'][1]["placing"]
+        place2 = resp['results'][2]["placing"]
+        place3 = resp['results'][3]["placing"]
+        place4 = resp['results'][4]["placing"]
+        place5 = resp['results'][5]["placing"]
+        place6 = resp['results'][6]["placing"]
+        place7 = resp['results'][7]["placing"]
+        place8 = resp['results'][8]["placing"]
+        place9 = resp['results'][9]["placing"]
+        place10 = resp['results'][10]["placing"]
+        COLORS = {
+        'red': '<:r_:524455235188424718>',
+        'blue': '<:b_:480148438487531520>',
+        'purple': '<:p_:524458234803650580>',
+        'orange': '<:o_:524458234694860800>',
+        }
+        color0 = COLORS[color0]
+        color1 = COLORS[color1]
+        color2 = COLORS[color2]
+        color3 = COLORS[color3]
+        color4 = COLORS[color4]
+        color5 = COLORS[color5]
+        color6 = COLORS[color6]
+        color7 = COLORS[color7]
+        color8 = COLORS[color8]
+        color9 = COLORS[color9]
+        embed = discord.Embed(title="Season"+" "f'{leader}', description="",  color =0xdd3d20)
+        embed.set_author(name="TankPit Leaderboards", url="https://discordapp.com", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
+        embed.set_thumbnail(url="https://tankpit.com/images/icons/classy.png")
+        embed.add_field(name="#1st"f'{color0}'f'{tank0}', value=f'{awards0}', inline=False)
+        embed.add_field(name="#2nd"f'{color1}'f'{tank1}', value=f'{awards1}', inline=False)
+        embed.add_field(name="#3rd"f'{color2}'f'{tank2}', value=f'{awards2}', inline=False)
+        embed.add_field(name="#4th"f'{color3}'f'{tank3}', value=f'{awards3}', inline=False)
+        embed.add_field(name="#5th"f'{color4}'f'{tank4}', value=f'{awards4}', inline=False)
+        embed.add_field(name="#6th"f'{color5}'f'{tank5}', value=f'{awards5}', inline=False)
+        embed.add_field(name="#7th"f'{color6}'f'{tank6}', value=f'{awards6}', inline=False)
+        embed.add_field(name="#8th"f'{color7}'f'{tank7}', value=f'{awards7}', inline=False)
+        embed.add_field(name="#9th"f'{color8}'f'{tank8}', value=f'{awards8}', inline=False)
+        embed.add_field(name="#10th"f'{color9}'f'{tank9}', value=f'{awards9}', inline=False)
 
-
-@client.command(pass_context=True)
-async def top25():
-    embed = discord.Embed(title="Top25 Current season (Live updates)", description="", url="https://tankpit.com/top25",  color =0x00e100)
-    page= requests.get("https://tankpit.com/top25")
-    soup = BeautifulSoup(page.content, 'html.parser')
-    data = soup.find(id="top25-page")
-
-    one = data("td")[1].get_text()
-    two = data("td")[6].get_text()
-    three = data("td")[11].get_text()
-    four = data("td")[16].get_text()
-    five = data("td")[21].get_text()
-    six = data("td")[26].get_text()
-    seven = data("td")[31].get_text()
-    eight = data("td")[36].get_text()
-    nine = data("td")[41].get_text()
-    ten = data("td")[46].get_text()
-    eleven =data("td")[51].get_text()
-    twelve =data("td")[56].get_text()
-    thirteen =data("td")[61].get_text()
-    fourteen =data("td")[66].get_text()
-    fivthteen =data("td")[71].get_text()
-    sixteen =data("td")[76].get_text()
-    seventeen =data("td")[81].get_text()
-    eightteen =data("td")[86].get_text()
-    nineteen =data("td")[91].get_text()
-    twenty =data("td")[96].get_text()
-    twentyone =data("td")[101].get_text()
-    twentytwo =data("td")[106].get_text()
-    twentythree=data("td")[111].get_text()
-    twentyfour=data("td")[116].get_text()
-    twentyfive=data("td")[121].get_text()
-
-
-
-
-    embed.add_field(name="1st", value=one, inline=True)
-    embed.add_field(name="2nd", value=two, inline=True)
-    embed.add_field(name="3rd", value= three, inline=True)
-    embed.add_field(name="#4th", value= four, inline=True)
-    embed.add_field(name="#5th", value=five , inline =True)
-    embed.add_field(name="#6th", value=six , inline =True)
-    embed.add_field(name="#7th", value=seven , inline =True)
-    embed.add_field(name="#8th", value=eight , inline =True)
-    embed.add_field(name="#9th", value=nine , inline =True)
-    embed.add_field(name="#10th", value=ten , inline =True)
-    embed.add_field(name="#11th", value=eleven , inline =True)
-    embed.add_field(name="#12h", value=twelve , inline =True)
-    embed.add_field(name="#13th", value=thirteen, inline =True)
-    embed.add_field(name="#14th", value=fourteen , inline =True)
-    embed.add_field(name="#15th", value=fivthteen , inline =True)
-    embed.add_field(name="#16th", value=sixteen , inline =True)
-    embed.add_field(name="#17th", value=seventeen , inline =True)
-    embed.add_field(name="#18th", value=eightteen , inline =True)
-    embed.add_field(name="#19th", value=nineteen , inline =True)
-    embed.add_field(name="#20th", value=twenty , inline =True)
-    embed.add_field(name="#21st", value=twentyone , inline =True)
-    embed.add_field(name="#22nd", value=twentytwo, inline =True)
-    embed.add_field(name="#23rd", value=twentythree , inline =True)
-    embed.add_field(name="#24th", value=twentyfour , inline =True)
-    embed.add_field(name="#25th", value=twentyfive , inline =True)
-    await client.say(embed=embed)
-
-
+        await client.say(embed=embed)
 #-----------events-------------------
 
 
@@ -616,8 +589,21 @@ async def on_member_remove(member):
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=Game(name="Type: ?help"))
+    embed = discord.Embed(title="", description="",  color =0xff0000)
     print("logged in as" + client.user.name)
+    while True:
+        page= requests.get("https://tankpit.com")
+        await asyncio.sleep(5)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        data = soup.find(id="hero-activity")
+        activity = data("p")[0].get_text()
+        await client.change_presence(game=Game(name=f'{activity}'))
+        await asyncio.sleep(5)
+
+
+
+
+
 
 
 
