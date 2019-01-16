@@ -190,17 +190,6 @@ async def id(tank_id):
 #async def ht():
 #await client.say(lastplayed)
 
-@client.command()
-async def testfunc():
-    async with aiohttp.ClientSession()as session:
-        while True:
-            response = await session.get('https://tankpit.com/api/tank?tank_id=3582')
-            await asyncio.sleep(5)
-            resp = await response.json()
-            kills = resp["map_data"]["World"]["destroyed_enemies"]
-            if kills == 1:
-                await client.say("Achivment Unlocked 2 kills ")
-                break
 
 
 
