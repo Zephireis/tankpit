@@ -190,24 +190,24 @@ async def id(tank_id):
 #async def ht():
 #await client.say(lastplayed)
 
-@client.command()
-async def feed(tan):
-    embed = discord.Embed(title="", description="", color=0x00ff00)
-    async with aiohttp.ClientSession()as session:
-        while True:
-            response = await session.get('https://tankpit.com/api/tank?tank_id=' + tan )
-            await asyncio.sleep(5)
-            resp = await response.json()
-            tptank2 = resp.get("name", "N/A")
-            kills4 = resp["map_data"]["World"]["destroyed_enemies"]
-            kills = resp["map_data"]["World"]["destroyed_enemies"]
-            ranks = resp["map_data"]["World"]["rank"]
-            if kills == 12:
-                embed.add_field(name=f"{tptank2}", value=f"Has been awarded test award {kills}", inline=True)
-                await client.say(embed=embed)
-                break
-            else:
-                break
+#@client.command()
+#async def feed(tan):
+    #embed = discord.Embed(title="", description="", color=0x00ff00)
+    #async with aiohttp.ClientSession()as session:
+        #while True:
+            #response = await session.get('https://tankpit.com/api/tank?tank_id=' + tan )
+            #await asyncio.sleep(5)
+            #resp = await response.json()
+            #tptank2 = resp.get("name", "N/A")
+            #kills4 = resp["map_data"]["World"]["destroyed_enemies"]
+            #kills = resp["map_data"]["World"]["destroyed_enemies"]
+            #ranks = resp["map_data"]["World"]["rank"]
+            #if kills == 12:
+                #embed.add_field(name=f"{tptank2}", value=f"Has been awarded test award {kills}", inline=True)
+                #await client.say(embed=embed)
+                #break
+            #else:
+                #break
 
 
 
