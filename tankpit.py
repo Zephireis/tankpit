@@ -567,7 +567,15 @@ async def alerts_off():
     await client.say(embed=embed)
 
 
+@client.event
+async def on_message(message4):
+    # we do not want the bot to reply to itself
+    if message4.author == client.user:
+        return
 
+    if message4.content.startswith('1+'):
+        await client.send_message(message4.channel, "1+ added to {0.author.mention}".format(message4))
+        await client.process_commands(message4)
 
 
 
