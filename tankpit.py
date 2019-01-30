@@ -511,16 +511,12 @@ async def season(year):
         embed = discord.Embed(title="Season"+" "f'{leader}', description="",  color =0xdd3d20)
         embed.set_author(name="TankPit Leaderboards", url="https://discordapp.com", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
         embed.set_thumbnail(url="https://tankpit.com/images/icons/classy.png")
-        embed.add_field(name="#1st"f'{color0}'f'{tank0}', value=f'{awards0}', inline=False)
-        embed.add_field(name="#2nd"f'{color1}'f'{tank1}', value=f'{awards1}', inline=False)
-        embed.add_field(name="#3rd"f'{color2}'f'{tank2}', value=f'{awards2}', inline=False)
-        embed.add_field(name="#4th"f'{color3}'f'{tank3}', value=f'{awards3}', inline=False)
-        embed.add_field(name="#5th"f'{color4}'f'{tank4}', value=f'{awards4}', inline=False)
-        embed.add_field(name="#6th"f'{color5}'f'{tank5}', value=f'{awards5}', inline=False)
-        embed.add_field(name="#7th"f'{color6}'f'{tank6}', value=f'{awards6}', inline=False)
-        embed.add_field(name="#8th"f'{color7}'f'{tank7}', value=f'{awards7}', inline=False)
-        embed.add_field(name="#9th"f'{color8}'f'{tank8}', value=f'{awards8}', inline=False)
-        embed.add_field(name="#10th"f'{color9}'f'{tank9}', value=f'{awards9}', inline=False)
+        embed.add_field(name="1 "f'{color0}  {tank0}{awards0}', value="2 "f'{color1}  {tank1}{awards1}', inline=False)
+        embed.add_field(name="3 "f'{color2}  {tank2}{awards2}', value="4 "f'{color3}  {tank3}{awards3}', inline=False)
+        embed.add_field(name="5 "f'{color4}  {tank4}{awards4}', value="6 "f'{color5}  {tank5}{awards5}', inline=False)
+        embed.add_field(name="7 "f'{color6}  {tank6}{awards6}', value="8 "f'{color7}  {tank7}{awards7}', inline=False)
+        embed.add_field(name="9 "f'{color8}  {tank8}{awards8}', value="10"f'{color9}  {tank9}{awards9}', inline=False)
+
 
         await client.say(embed=embed)
 #-----------events-------------------
