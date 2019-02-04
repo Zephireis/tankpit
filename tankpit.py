@@ -398,7 +398,7 @@ async def results(id):
 
 
 @client.command()
-async def bb(id):
+async def post(id):
     async with aiohttp.ClientSession()as session:
         response = await session.get('https://tankpit.com/api/bb/post?post_id=' + id)
         resp = await response.json()
@@ -419,8 +419,121 @@ async def bb(id):
 
 
         await client.say(embed=embed)
+        
+@client.command()
+async def bb(year, month, day):
+    async with aiohttp.ClientSession()as session:
+        response = await session.get('https://tankpit.com/api/bb?year='f'{year}&month={month}&day={day}')
+        resp = await response.json()
+        awards0 = award_string(resp[0]['awards'])
+        embed = discord.Embed(title="TankPit BulletinBoard 📖", description=" ",  color =0xdd3d20)
 
-
+        try:
+            s0 = resp[0]["section"]
+            awards0 = award_string(resp[0]['awards'])
+            tank = resp[0]["tank_name"]
+            message0 = resp[0]["message"]
+            embed.add_field(name="\u200b", value=f'{message0}\n**{tank}** {awards0}', inline=True)
+        except:
+            print("m0 none")
+        try:
+            s1 = resp[1]["section"]
+            awards1 = award_string(resp[1]['awards'])
+            tank1 = resp[1]["tank_name"]
+            message1 = resp[1]["message"]
+            embed.add_field(name="\u200b", value=f'{message1}\n**{tank1}** {awards1}', inline=True)
+        except:
+            print("m1 none")
+        try:
+            s2 = resp[2]["section"]
+            awards2 = award_string(resp[2]['awards'])
+            tank2 = resp[2]["tank_name"]
+            message2 = resp[2]["message"]
+            embed.add_field(name="\u200b", value=f'{message2}\n**{tank2}** {awards2}', inline=True)
+        except:
+            print("m2 none")
+        try:
+            s3 = resp[2]["section"]
+            awards3 = award_string(resp[3]['awards'])
+            tank3 = resp[3]["tank_name"]
+            message3 = resp[3]["message"]
+            embed.add_field(name="\u200b", value=f'{message3}\n**{tank3}** {awards3}', inline=True)
+        except:
+            print("m3 None")
+        try:
+            awards4 = award_string(resp[4]['awards'])
+            tank4 = resp[4]["tank_name"]
+            message4 = resp[4]["message"]
+            embed.add_field(name="\u200b", value=f'{message4}\n**{tank4}** {awards4}', inline=True)
+        except:
+            print("m4 None")
+        try:
+            awards5 = award_string(resp[5]['awards'])
+            tank5 = resp[5]["tank_name"]
+            message5 = resp[5]["message"]
+            embed.add_field(name="\u200b", value=f'{message5}\n**{tank5}** {awards5}', inline=True)
+        except:
+            print("m5 None")
+        try:
+            awards6 = award_string(resp[6]['awards'])
+            tank6 = resp[6]["tank_name"]
+            message6 = resp[6]["message"]
+            embed.add_field(name="\u200b", value=f'{message6}\n**{tank6}** {awards6}', inline=True)
+        except:
+            print("m6 None")
+        try:
+            awards7 = award_string(resp[7]['awards'])
+            tank7 = resp[7]["tank_name"]
+            message7 = resp[7]["message"]
+            embed.add_field(name="\u200b", value=f'{message7}\n**{tank7}** {awards7}', inline=True)
+        except:
+            print("m7 None")
+        try:
+            awards8 = award_string(resp[8]['awards'])
+            tank8 = resp[8]["tank_name"]
+            message8 = resp[8]["message"]
+            embed.add_field(name="\u200b", value=f'{message8}\n**{tank8}** {awards8}', inline=True)
+        except:
+            print("m8 None")
+        try:
+            awards9 = award_string(resp[9]['awards'])
+            tank9 = resp[9]["tank_name"]
+            message9 = resp[9]["message"]
+            embed.add_field(name="\u200b", value=f'{message9}\n**{tank9}** {awards9}', inline=True)
+        except:
+            print("m9 None")
+        try:
+            awards10 = award_string(resp[10]['awards'])
+            tank10 = resp[10]["tank_name"]
+            message10 = resp[10]["message"]
+            embed.add_field(name="\u200b", value=f'{message10}\n**{tank10}** {awards10}', inline=True)
+        except:
+            print("m10 None")
+        try:
+            awards11 = award_string(resp[11]['awards'])
+            tank11 = resp[11]["tank_name"]
+            message11 = resp[11]["message"]
+            embed.add_field(name="\u200b", value=f'{message11}\n**{tank11}** {awards11}', inline=True)
+        except:
+            print("m11 None")
+        try:
+            awards12 = award_string(resp[12]['awards'])
+            tank12 = resp[12]["tank_name"]
+            message12 = resp[12]["message"]
+            embed.add_field(name="\u200b", value=f'{message12}\n**{tank12}** {awards12}', inline=True)
+        except:
+            print("m12 None")
+        try:
+            awards13 = award_string(resp[13]['awards'])
+            tank13 = resp[13]["tank_name"]
+            message13 = resp[13]["message"]
+            embed.add_field(name="\u200b", value=f'{message13}\n**{tank13}** {awards13}', inline=True)
+        except:
+            print("m13 None")
+        await client.say(embed=embed)
+        
+        
+        
 @client.command()
 async def bbb(year,month,day):
     async with aiohttp.ClientSession()as session:
