@@ -13,7 +13,7 @@ import typing
 from discord import Game
 from bs4 import BeautifulSoup
 from discord.ext.commands import Bot
-os.chdir(r"C:\Users\Zephireis\Desktop\clean")
+
 
 
 TOKEN = "MjcxMzcwODc3NzAxMDYyNjY3.D0c35A.EQYFgFoWeKtyXs5PN5ZatKdSHSc"
