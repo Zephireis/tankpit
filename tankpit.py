@@ -168,8 +168,7 @@ async def tp(ctx, tank):
             deac = resp ["map_data"]["World"]["deactivated"]
         except:
             embed.set_footer(text="Players 'World' Stats 'deactivated'n ot set to public")
-        cups = resp['user_tournament_victories'] ['bronze']
-        print(cups)
+
 
         lastplayed =  resp.get("last_played", "\u200b")
         favm = resp.get("favorite_map", "\u200b")
@@ -183,7 +182,7 @@ async def tp(ctx, tank):
         try:
             cups = resp['user_tournament_victories'] ['bronze']
         except:
-            a = "\u200b"
+            print("No Bronze")
         try:
             cups1 = resp['user_tournament_victories'] ['silver']
         except:
@@ -220,10 +219,6 @@ async def tp(ctx, tank):
         except:
             embed.add_field(name="Cups", value='\u200b', inline=True)
         embed.add_field(name="Bio", value=f'{Bio}{space}', inline=False)
-
-
-
-
         await client.say(embed=embed)
 
 
