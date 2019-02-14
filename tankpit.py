@@ -177,6 +177,11 @@ async def tp(ctx, tank):
             embed.add_field(name="Cups", value='\u200b', inline=True)
         embed.add_field(name="Bio", value=f'{Bio}{space}', inline=False)
 
+
+
+
+        await client.say(embed=embed)
+
 @client.command()
 async def ad(tank):
     with open('users.json', 'r')as f:
