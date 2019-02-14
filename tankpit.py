@@ -836,5 +836,5 @@ async def on_ready():
 
 
 
-a = a
-client.run(TOKEN)
+
+        client.run(TOKEN)
