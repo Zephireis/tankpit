@@ -124,7 +124,54 @@ async def tp(tank_name):
         embed.set_footer(text='use command .id'f' {ids}'' for indepth tank stats')
         await client.say(embed=embed)
 
+@client.command()
+async def ad(tank):
+    with open('users.json', 'r')as f:
+        users = json.load(f)
 
+        await update_data(users, tank)
+
+        with open('users.json', 'w')as f:
+            json.dump(users, f)
+        await client.say(f'Added {tank} to profile')
+
+
+async def update_data(users, tanks):
+    if not tanks in users:
+        users[tanks] = {}
+        users[tanks]['Name'] = tanks
+        users[tanks]['level'] = 1
+
+@client.command()
+async def acc():
+    with open('users.json') as f:
+        d = json.load(f)
+        result = d['GeneralSick']['Name']
+        result1 = d ['Discord']['Name']
+        result2 = d['Fuel Medic']['Name']
+        embed = discord.Embed(title="Profile", description="Tanks Of GeneralSick", color=0x00ff00)
+        async with aiohttp.ClientSession()as session:
+            response = await session.get(f'https://tankpit.com/api/find_tank?name={result}')
+            resp_json = await response.json()
+            b = award_string(resp_json[0]['awards'])
+            embed.add_field(name=resp_json[0]['name'], value=b, inline=True)
+
+
+        async with aiohttp.ClientSession()as sess:
+            respons = await sess.get(f'https://tankpit.com/api/find_tank?name={result1}')
+            resp = await respons.json()
+            awards1 = award_string(resp[0]['awards'])
+            embed.add_field(name=resp[0]['name'], value=awards1, inline=True)
+
+
+        async with aiohttp.ClientSession()as sess2:
+            respons2 = await sess2.get(f'https://tankpit.com/api/find_tank?name={result2}')
+            print(result2)
+            resp2 = await respons2.json()
+            a = award_string(resp2[0]['awards'])
+            embed.add_field(name=resp2[0]['name'], value=a, inline=True)
+
+            await client.say(embed=embed)
 
 
 @client.command()
