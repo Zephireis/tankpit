@@ -110,21 +110,121 @@ def award_string(seq: list) -> str:
         raise Exception('Invalid Length')
     awards = [emoji_set[i][award] for i,award in enumerate(seq)]
     return ''.join(awards)
-@client.command()
-async def tp(tank_name):
-    embed = discord.Embed(title="", description="", color=0x00ff00)
+@client.command(pass_context=True)
+async def tp(ctx, tank):
     async with aiohttp.ClientSession()as session:
-        response = await session.get('https://tankpit.com/api/find_tank?name=' + tank_name)
+        response = await session.get(f'https://tankpit.com/api/find_tank?name={tank}')
         resp_json = await response.json()
         ids = resp_json[0]['tank_id']
+        NAME = resp_json[0]['name']
         awards = award_string(resp_json[0]['awards'])
-        embed.add_field(name="Tank", value=resp_json[0]['name'], inline=True)
-        embed.add_field(name="Awards", value=f'{awards}'"\u200b", inline=True)
-        embed.add_field(name="Unit ID", value=resp_json[0]['tank_id'], inline=False)
+        embed = discord.Embed(title=f'Profile stats of {NAME}#{ids}', description="", color=0x18e728)
+        embed.add_field(name="Tank ", value=f'{NAME} {awards}', inline=False)
         embed.set_footer(text='use command .id'f' {ids}'' for indepth tank stats')
-        await client.say(embed=embed)
+    async with aiohttp.ClientSession()as sess:
+        respons = await sess.get(f'https://tankpit.com/api/tank?tank_id={ids}')
+        resp = await respons.json()
+        try:
+            time = resp["map_data"]["World"]["time_played"]
+            ranks = resp["map_data"]["World"]["rank"]
+            kills = resp["map_data"]["World"]["destroyed_enemies"]
+            deac = resp ["map_data"]["World"]["deactivated"]
+            cups = resp['user_tournament_victories'] ['bronze']
+            print(cups)
+
+        except:
+            embed.set_footer(text="Players 'World' Stats are not enabled to 'public'")
+        lastplayed =  resp.get("last_played", "\u200b")
+        favm = resp.get("favorite_map", "\u200b")
+        bftank= resp.get("bf_tank_name", "\u200b")
+        pong = resp.get("ping", "\u200b")
+        location = resp.get("country", "\u200b")
+        Bio = resp.get("profile", "\u200b")
+        tptank = resp.get("name", "\u200b")
+        space ="\u200b"
+
+        try:
+            cups = resp['user_tournament_victories'] ['bronze']
+            cups1 = resp['user_tournament_victories'] ['silver']
+            cups2 = resp['user_tournament_victories'] ['gold']
+        except:
+            a = "none"
+        try:
+            embed.add_field(name="Time Played", value=f'{time}{space}', inline=True)
+        except:
+            embed.add_field(name="Time Played", value="\u200b", inline=True)
+        try:
+            embed.add_field(name="Rank", value=f'{ranks}{space}', inline=True)
+        except:
+            embed.add_field(name="Rank", value=f'\u200b', inline=True)
+        try:
+            embed.add_field(name="Kills", value=f'{kills}{space}', inline=True)
+        except:
+            embed.add_field(name="Kills", value='\u200b', inline=True)
+        try:
+            embed.add_field(name="Deaths", value=f'{deac}{space}', inline=True)
+        except:
+            embed.add_field(name="Deaths", value='\u200b', inline=True)
+
+        embed.add_field(name="Last played", value=resp.get("last_played", "\u200b"), inline=True)
+        embed.add_field(name="Favorite Map", value=f'{favm}{space}', inline=True)
+        embed.add_field(name="BattleField Tank", value=f'{bftank}{space}', inline=True)
+        embed.add_field(name="Ping", value=f'{pong}{space}', inline=True)
+        embed.add_field(name="Country", value=f'{location}{space}', inline=True)
+        try:
+            embed.add_field(name="Cups", value=f'<:B_Cup_New:476303841562853377>x{cups}<:S_Cup_New:476303857924833290>x{cups1}<:G_Cup_New:476303868486221824>x{cups2}{space}', inline=True)
+        except:
+            embed.add_field(name="Cups", value='\u200b', inline=True)
+        embed.add_field(name="Bio", value=f'{Bio}{space}', inline=False)
+
+@client.command()
+async def ad(tank):
+    with open('users.json', 'r')as f:
+        users = json.load(f)
+
+        await update_data(users, tank)
+
+        with open('users.json', 'w')as f:
+            json.dump(users, f)
+        await client.say(f'Added {tank} to profile')
 
 
+async def update_data(users, tanks):
+    if not tanks in users:
+        users[tanks] = {}
+        users[tanks]['Name'] = tanks
+        users[tanks]['level'] = 1
+
+@client.command()
+async def acc():
+    with open('users.json') as f:
+        d = json.load(f)
+        result = d['GeneralSick']['Name']
+        result1 = d ['Discord']['Name']
+        result2 = d['Fuel Medic']['Name']
+        embed = discord.Embed(title="Profile", description="Tanks Of GeneralSick", color=0x00ff00)
+        async with aiohttp.ClientSession()as session:
+            response = await session.get(f'https://tankpit.com/api/find_tank?name={result}')
+            resp_json = await response.json()
+            b = award_string(resp_json[0]['awards'])
+            embed.add_field(name=resp_json[0]['name'], value=b, inline=True)
+
+
+        async with aiohttp.ClientSession()as sess:
+            respons = await sess.get(f'https://tankpit.com/api/find_tank?name={result1}')
+            resp = await respons.json()
+            awards1 = award_string(resp[0]['awards'])
+            embed.add_field(name=resp[0]['name'], value=awards1, inline=True)
+
+
+        async with aiohttp.ClientSession()as sess2:
+            respons2 = await sess2.get(f'https://tankpit.com/api/find_tank?name={result2}')
+            print(result2)
+            resp2 = await respons2.json()
+            a = award_string(resp2[0]['awards'])
+            embed.add_field(name=resp2[0]['name'], value=a, inline=True)
+
+            await client.say(embed=embed)
 
 
 @client.command()
