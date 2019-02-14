@@ -8,11 +8,12 @@ import html5lib
 import os
 import asyncio
 import threading
+import typing
 
 from discord import Game
 from bs4 import BeautifulSoup
 from discord.ext.commands import Bot
-
+os.chdir(r"C:\Users\Zephireis\Desktop\clean")
 
 
 TOKEN = "MjcxMzcwODc3NzAxMDYyNjY3.D0c35A.EQYFgFoWeKtyXs5PN5ZatKdSHSc"
@@ -78,7 +79,7 @@ async def serverinfo(ctx):
 #--------PlayerStats commands------------
 
 @client.command()
-async def tpa(tank_name):
+async def tpa(tank_name, ):
 
     async with aiohttp.ClientSession()as session:
         response = await session.get('https://tankpit.com/api/find_tank?name=' + tank_name)
@@ -91,6 +92,33 @@ async def tpa(tank_name):
             awards_string += awards_dict.get(awards,'' )
         await client.say(awards_string)
 
+
+@client.command(pass_context=True)
+async def add1(ctx, tank):
+    async with aiohttp.ClientSession()as session:
+        response = await session.get(f'https://tankpit.com/api/find_tank?name={tank}')
+        resp_json = await response.json()
+        awards = award_string(resp_json[0]['awards'])
+        data = resp_json[0]['tank_id']
+        with open('users.json', 'w') as outfile:
+            json.dump(f'{data}', outfile)
+
+@client.command()
+async def add(tank):
+    async with aiohttp.ClientSession()as session:
+        response = await session.get(f'https://tankpit.com/api/find_tank?name={tank}')
+        resp_json = await response.json()
+        data = resp_json[0]['name']
+        with open('users.json', 'w' )as f:
+            json.dump(data, f)
+
+    await update_data(users, user)
+    if not user.id in users:
+        users[user.id] = {}
+        users[user.id][tank2]
+        with open('users.json', 'r') as a:
+            text = json.load(a)
+            await client.say(text)
 
 
 
@@ -126,14 +154,23 @@ async def tp(ctx, tank):
         resp = await respons.json()
         try:
             time = resp["map_data"]["World"]["time_played"]
-            ranks = resp["map_data"]["World"]["rank"]
-            kills = resp["map_data"]["World"]["destroyed_enemies"]
-            deac = resp ["map_data"]["World"]["deactivated"]
-            cups = resp['user_tournament_victories'] ['bronze']
-            print(cups)
-
         except:
-            embed.set_footer(text="Players 'World' Stats are not enabled to 'public'")
+            embed.set_footer(text="Players 'World' Stats 'time played' not set to public")
+        try:
+            ranks = resp["map_data"]["World"]["rank"]
+        except:
+            embed.set_footer(text="Players 'World' Stats 'rank' not set to public")
+        try:
+            kills = resp["map_data"]["World"]["destroyed_enemies"]
+        except:
+            embed.set_footer(text="Players 'World' Stats 'kills' not set to public")
+        try:
+            deac = resp ["map_data"]["World"]["deactivated"]
+        except:
+            embed.set_footer(text="Players 'World' Stats 'deactivated'n ot set to public")
+        cups = resp['user_tournament_victories'] ['bronze']
+        print(cups)
+
         lastplayed =  resp.get("last_played", "\u200b")
         favm = resp.get("favorite_map", "\u200b")
         bftank= resp.get("bf_tank_name", "\u200b")
@@ -145,10 +182,17 @@ async def tp(ctx, tank):
 
         try:
             cups = resp['user_tournament_victories'] ['bronze']
+        except:
+            a = "\u200b"
+        try:
             cups1 = resp['user_tournament_victories'] ['silver']
+        except:
+            b= "\u200b"
+        try:
             cups2 = resp['user_tournament_victories'] ['gold']
         except:
-            a = "none"
+            c = "\u200b"
+
         try:
             embed.add_field(name="Time Played", value=f'{time}{space}', inline=True)
         except:
@@ -176,6 +220,12 @@ async def tp(ctx, tank):
         except:
             embed.add_field(name="Cups", value='\u200b', inline=True)
         embed.add_field(name="Bio", value=f'{Bio}{space}', inline=False)
+
+
+
+
+        await client.say(embed=embed)
+
 
 @client.command()
 async def ad(tank):
@@ -226,6 +276,13 @@ async def acc():
 
             await client.say(embed=embed)
 
+@client.command(pass_context=True)
+async def create(ctx, file):
+    f= open(f'{file}.txt',"w+")
+    await client.say("{} is your name".format(ctx.message.author.mention))
+
+
+
 
 @client.command()
 async def id(tank_id):
@@ -252,6 +309,7 @@ async def id(tank_id):
         Bio = resp.get("profile", "\u200b")
         tptank = resp.get("name", "\u200b")
         space ="\u200b"
+
 
         embed.add_field(name='Name', value=f'{tptank}'f'{space}', inline=True)
         try:
@@ -498,38 +556,14 @@ async def results(id):
 
 
 @client.command()
-async def post(id):
-    async with aiohttp.ClientSession()as session:
-        response = await session.get('https://tankpit.com/api/bb/post?post_id=' + id)
-        resp = await response.json()
-        sec = resp["section"]
-        space ="\u200b"
-        name = resp["tank_name"]
-        message = resp["message"]
-        Month = resp["month"]
-        Day = resp["day"]
-        Year = resp["year"]
-        awards = award_string(resp['awards'])
-
-        embed = discord.Embed(title="", description="",  color =0xdd3d20)
-        embed.set_author(name="TankPit Bulletin Board Post: "f'{Month}'"/"f'{Day}'"/"f'{Year}', url="https://discordapp.com", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
-        embed.add_field(name=f'{space}', value=f'```{sec}```', inline=True)
-        embed.add_field(name=f'{space}', value=f'{message}',inline=True)
-        embed.add_field(name=f'{space}', value="-"f'{name}'" "f'{awards}',inline=False)
-
-
-        await client.say(embed=embed)
-        
-@client.command()
 async def bb(year, month, day):
     async with aiohttp.ClientSession()as session:
         response = await session.get('https://tankpit.com/api/bb?year='f'{year}&month={month}&day={day}')
         resp = await response.json()
         awards0 = award_string(resp[0]['awards'])
-        embed = discord.Embed(title="TankPit BulletinBoard 📖", description=" ",  color =0xdd3d20)
+        embed = discord.Embed(title="TankPit BulletinBoard 📖", description= "a",  color =0xdd3d20)
 
         try:
-            s0 = resp[0]["section"]
             awards0 = award_string(resp[0]['awards'])
             tank = resp[0]["tank_name"]
             message0 = resp[0]["message"]
@@ -631,26 +665,38 @@ async def bb(year, month, day):
         except:
             print("m13 None")
         await client.say(embed=embed)
-        
-        
-        
+
+
+
+
+
+@client.command()
+async def b(leaderboard, color, rank, name):
+    async with aiohttp.ClientSession()as session:
+        response = await session.get(f'tankpit.com/api/leaderboards/?leaderboard={leaderboard}&color={color}&rank={rank}&search={name}')
+        resp = await response.json()
+        name0 = resp["results"][0]["name"]
+
+        await client.say(name0)
+
+
+
+
+
+
+
+
 @client.command()
 async def bbb(year,month,day):
     async with aiohttp.ClientSession()as session:
         a="&"
-        year=[2018]
-        month=[8]
-        day=[12]
+
         response = await session.get('https://tankpit.com/api/bb/?year='+f'{year}'f'{month}'f'{day}')
         resp = await response.json()
         name = resp[0]["tank_name"]
         embed = discord.Embed(title="", description="",  color =0xdd3d20)
         embed.add_field(name="test", value=f'{name}', inline=True)
         await client.say(embed=embed)
-
-
-
-
 
 
 
@@ -662,76 +708,29 @@ async def season(year):
         space ="\u200b"
         leader= resp["leaderboard"]
         awards0 = award_string(resp['results'][0]['awards'])
-        awards1 = award_string(resp['results'][1]['awards'])
-        awards2 = award_string(resp['results'][2]['awards'])
-        awards3 = award_string(resp['results'][3]['awards'])
-        awards4 = award_string(resp['results'][4]['awards'])
-        awards5 = award_string(resp['results'][5]['awards'])
-        awards6 = award_string(resp['results'][6]['awards'])
-        awards7 = award_string(resp['results'][7]['awards'])
-        awards8 = award_string(resp['results'][8]['awards'])
-        awards9 = award_string(resp['results'][9]['awards'])
-        awards10 = award_string(resp['results'][10]['awards'])
         tank0 = resp["results"][0]["name"]
-        tank1 = resp["results"][1]["name"]
-        tank2 = resp["results"][2]["name"]
-        tank3 = resp["results"][3]["name"]
-        tank4 = resp["results"][4]["name"]
-        tank5 = resp["results"][5]["name"]
-        tank6 = resp["results"][6]["name"]
-        tank7 = resp["results"][7]["name"]
-        tank8 = resp["results"][8]["name"]
-        tank9 = resp["results"][9]["name"]
-        tank10 = resp["results"][10]["name"]
         color0 = resp['results'][0]["color"]
-        color1 = resp['results'][1]["color"]
-        color2 = resp['results'][2]["color"]
-        color3 = resp['results'][3]["color"]
-        color4 = resp['results'][4]["color"]
-        color5 = resp['results'][5]["color"]
-        color6 = resp['results'][6]["color"]
-        color7 = resp['results'][7]["color"]
-        color8 = resp['results'][8]["color"]
-        color9 = resp['results'][9]["color"]
-        color10 = resp['results'][10]["color"]
         place0 = resp['results'][0]["placing"]
-        place1 = resp['results'][1]["placing"]
-        place2 = resp['results'][2]["placing"]
-        place3 = resp['results'][3]["placing"]
-        place4 = resp['results'][4]["placing"]
-        place5 = resp['results'][5]["placing"]
-        place6 = resp['results'][6]["placing"]
-        place7 = resp['results'][7]["placing"]
-        place8 = resp['results'][8]["placing"]
-        place9 = resp['results'][9]["placing"]
-        place10 = resp['results'][10]["placing"]
+
         COLORS = {
-        'red': '<:r_:524455235188424718>',
-        'blue': '<:b_:480148438487531520>',
-        'purple': '<:p_:524458234803650580>',
-        'orange': '<:o_:524458234694860800>',
+        'red': '0xff0000',
+        'blue': '',
+        'purple': '0xf10ee0',
+        'orange': '',
         }
         color0 = COLORS[color0]
-        color1 = COLORS[color1]
-        color2 = COLORS[color2]
-        color3 = COLORS[color3]
-        color4 = COLORS[color4]
-        color5 = COLORS[color5]
-        color6 = COLORS[color6]
-        color7 = COLORS[color7]
-        color8 = COLORS[color8]
-        color9 = COLORS[color9]
-        embed = discord.Embed(title="Season"+" "f'{leader}', description="",  color =0xdd3d20)
+
+        embed = discord.Embed(title="Season"+" "f'{leader}', description="",  color =color0)
         embed.set_author(name="TankPit Leaderboards", url="https://discordapp.com", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
         embed.set_thumbnail(url="https://tankpit.com/images/icons/classy.png")
-        embed.add_field(name="1 "f'{color0}  {tank0}{awards0}', value="2 "f'{color1}  {tank1}{awards1}', inline=False)
-        embed.add_field(name="3 "f'{color2}  {tank2}{awards2}', value="4 "f'{color3}  {tank3}{awards3}', inline=False)
-        embed.add_field(name="5 "f'{color4}  {tank4}{awards4}', value="6 "f'{color5}  {tank5}{awards5}', inline=False)
-        embed.add_field(name="7 "f'{color6}  {tank6}{awards6}', value="8 "f'{color7}  {tank7}{awards7}', inline=False)
-        embed.add_field(name="9 "f'{color8}  {tank8}{awards8}', value="10"f'{color9}  {tank9}{awards9}', inline=False)
+        embed.add_field(name="1 "f'{color0}  {tank0}{awards0}', value="None", inline=False)
 
 
         await client.say(embed=embed)
+
+
+
+
 #-----------events-------------------
 
 
