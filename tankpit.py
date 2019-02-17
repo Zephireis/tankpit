@@ -220,6 +220,90 @@ async def tp(ctx, tank):
             embed.add_field(name="Cups", value='\u200b', inline=True)
         embed.add_field(name="Bio", value=f'{Bio}{space}', inline=False)
         await client.say(embed=embed)
+        
+@client.command(pass_context=True)
+async def prof(ctx, tank):
+    async with aiohttp.ClientSession()as session:
+        response = await session.get(f'https://tankpit.com/api/find_tank?name={tank}')
+        resp_json = await response.json()
+        ids = resp_json[0]['tank_id']
+        NAME0 = resp_json[0]['name']
+        awards0 = award_string(resp_json[0]['awards'])
+        space ="\u200b"
+        embed = discord.Embed(title=f"Tanks of {NAME0}", description="", color=0x00ff00)
+        embed.add_field(name=f'{NAME0}\n{awards0}', value=f"{space}", inline=True)
+
+
+
+        page= requests.get(f"https://tankpit.com/tank_profile/?tank_id={ids}")
+        soup = BeautifulSoup(page.content, 'html.parser')
+    try:
+        tank1 = soup.find_all('b')[1].get_text()
+    except IndexError:
+        await client.say(f"Player {tank} has not enabled top 5 tanks on site profile (5 tanks required for command)")
+        return
+    try:
+        tank2 = soup.find_all('b')[2].get_text()
+    except IndexError:
+        await client.say(f"Player {tank} has not enabled top 5 tanks on site profile (5 tanks required for command)")
+        return
+    try:
+        tank3 = soup.find_all('b')[3].get_text()
+    except IndexError:
+        await client.say(f"Player {tank} has not enabled top 5 tanks on site profile (5 tanks required for command)")
+        return
+    try:
+        tank4 = soup.find_all('b')[4].get_text()
+    except IndexError:
+        await client.say(f"Player {tank} has not enabled top 5 tanks on site profile (5 tanks required for command)")
+        return
+    try:
+        tank5 = soup.find_all('b')[5].get_text()
+    except IndexError:
+        await client.say(f"Player {tank} has not enabled top 5 tanks on site profile (5 tanks required for command)")
+        return
+    try:
+        tank6 = soup.find_all('b')[6].get_text()
+    except IndexError:
+        await client.say(f"Player {tank} has not enabled top 5 tanks on site profile (5 tanks required for command)")
+        return
+    async with aiohttp.ClientSession()as session1:
+        response1 = await session1.get(f'https://tankpit.com/api/find_tank?name={tank1}')
+        resp_json1 = await response1.json()
+        id1 = resp_json1[0]['tank_id']
+        NAME1 = resp_json1[0]['name']
+        awards1 = award_string(resp_json1[0]['awards'])
+        embed.add_field(name=f'{NAME1}\n{awards1}', value=f"{space}", inline=True)
+    async with aiohttp.ClientSession()as session2:
+        response2 = await session2.get(f'https://tankpit.com/api/find_tank?name={tank2}')
+        resp_json2 = await response2.json()
+        id2 = resp_json2[0]['tank_id']
+        NAME2 = resp_json2[0]['name']
+        awards2 = award_string(resp_json2[0]['awards'])
+        embed.add_field(name=f'{NAME2}\n{awards2}', value=f"{space}", inline=True)
+    async with aiohttp.ClientSession()as session3:
+        response3 = await session3.get(f'https://tankpit.com/api/find_tank?name={tank3}')
+        resp_json3 = await response3.json()
+        id3 = resp_json3[0]['tank_id']
+        NAME3 = resp_json3[0]['name']
+        awards3 = award_string(resp_json3[0]['awards'])
+        embed.add_field(name=f'{NAME3}\n{awards3}', value=f"{space}", inline=True)
+    async with aiohttp.ClientSession()as session4:
+        response4 = await session4.get(f'https://tankpit.com/api/find_tank?name={tank4}')
+        resp_json4 = await response4.json()
+        id4 = resp_json4[0]['tank_id']
+        NAME4 = resp_json3[0]['name']
+        awards4 = award_string(resp_json4[0]['awards'])
+        embed.add_field(name=f'{NAME4}\n{awards4}', value=f"{space}", inline=True)
+    async with aiohttp.ClientSession()as session5:
+        response5 = await session5.get(f'https://tankpit.com/api/find_tank?name={tank5}')
+        resp_json5 = await response5.json()
+        id5 = resp_json5[0]['tank_id']
+        NAME5 = resp_json5[0]['name']
+        awards5 = award_string(resp_json5[0]['awards'])
+        embed.add_field(name=f'{NAME5}\n{awards5}', value=f"{space}", inline=True)
+        await client.say(embed=embed)
+
 
 
 @client.command()
