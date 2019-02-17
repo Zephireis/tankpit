@@ -292,7 +292,7 @@ async def prf(ctx, tank):
         response4 = await session4.get(f'https://tankpit.com/api/find_tank?name={tank4}')
         resp_json4 = await response4.json()
         id4 = resp_json4[0]['tank_id']
-        NAME4 = resp_json3[0]['name']
+        NAME4 = resp_json4[0]['name']
         awards4 = award_string(resp_json4[0]['awards'])
         embed.add_field(name=f'{NAME4}\n{awards4}', value=f"{space}", inline=True)
     async with aiohttp.ClientSession()as session5:
