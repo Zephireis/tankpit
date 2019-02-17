@@ -222,7 +222,7 @@ async def tp(ctx, tank):
         await client.say(embed=embed)
         
 @client.command(pass_context=True)
-async def prof(ctx, tank):
+async def prf(ctx, tank):
     async with aiohttp.ClientSession()as session:
         response = await session.get(f'https://tankpit.com/api/find_tank?name={tank}')
         resp_json = await response.json()
