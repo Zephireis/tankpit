@@ -230,7 +230,7 @@ async def prf(ctx, tank):
         NAME0 = resp_json[0]['name']
         awards0 = award_string(resp_json[0]['awards'])
         space ="\u200b"
-        embed = discord.Embed(title=f"Tanks of {NAME0}", description="", color=0x00ff00)
+        embed = discord.Embed(title=f"Tanks 5 of {NAME0}", description="", color=0x00ff00)
         embed.add_field(name=f'{NAME0}\n{awards0}', value=f"{space}", inline=True)
 
 
