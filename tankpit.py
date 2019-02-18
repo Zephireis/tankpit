@@ -746,7 +746,26 @@ async def bb(year, month, day):
         await client.say(embed=embed)
 
 
+@client.command()
+async def pst(id):
+    async with aiohttp.ClientSession()as session:
+        response = await session.get('https://tankpit.com/api/bb/post?post_id=' + id)
+        resp = await response.json()
+        sec = resp["section"]
+        space ="\u200b"
+        name = resp["tank_name"]
+        message = resp["message"]
+        Month = resp["month"]
+        Day = resp["day"]
+        Year = resp["year"]
+        awards = award_string(resp['awards'])
 
+        embed = discord.Embed(title="", description="",  color =0xdd3d20)
+        embed.set_author(name="TankPit Bulletin Board Post: "f'{Month}'"/"f'{Day}'"/"f'{Year}', url="https://discordapp.com", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
+        embed.add_field(name=f'{space}', value=f'```{sec}```', inline=True)
+        embed.add_field(name=f'{space}', value=f'{message}',inline=True)
+        embed.add_field(name=f'{space}', value="-"f'{name}'" "f'{awards}',inline=False)
+        await client.say(embed=embed)
 
 
 @client.command()
