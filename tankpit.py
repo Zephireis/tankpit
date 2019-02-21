@@ -797,8 +797,7 @@ async def bbb(year,month,day):
         await client.say(embed=embed)
 
 
-
-client.command()
+@client.command()
 async def season(year):
     async with aiohttp.ClientSession()as session:
         response = await session.get('https://tankpit.com/api/leaderboards/'+year)
@@ -873,8 +872,7 @@ async def season(year):
         embed.add_field(name="5 "f'{color4}  {tank4}{awards4}', value="6 "f'{color5}  {tank5}{awards5}', inline=False)
         embed.add_field(name="7 "f'{color6}  {tank6}{awards6}', value="8 "f'{color7}  {tank7}{awards7}', inline=False)
         embed.add_field(name="9 "f'{color8}  {tank8}{awards8}', value="10"f'{color9}  {tank9}{awards9}', inline=False)
-
-
+        
         await client.say(embed=embed)
 
 
