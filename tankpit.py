@@ -10,7 +10,7 @@ import asyncio
 import threading
 import typing
 
-
+from apex_legends import ApexLegends
 from discord import Game
 from bs4 import BeautifulSoup
 from discord.ext.commands import Bot
