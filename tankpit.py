@@ -420,15 +420,7 @@ async def id(tank_id):
             embed.add_field(name="Awards", value='\u200b', inline=False)
         await client.say(embed=embed)
         
-@client.command()
-async def ap(gamertag):
-    apex = ApexLegends("d219a9c0-8a58-45db-97d2-099999935b0b")
-    player = apex.player(f'{gamertag}')
-    await client.say(player)
-    for legend in player.legends:
-        await client.say(legend.legend_name)
-        print(legend.icon)
-        print(legend.damage)
+
 
 
 #r = requests.get('https://tankpit.com/api/tank?tank_id=3582')
