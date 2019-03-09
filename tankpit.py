@@ -450,7 +450,15 @@ async def id(tank_id):
                 #break
 
 
-
+@client.command(pass_context = True)
+async def report(ctx,user:discord.User,*reason:str):
+  embed = discord.Embed(title="", description="User Reports",  color =0xdd3d20)
+  embed.add_field(name=f'{user}', value=f'{reason}', inline=True)
+  await client.send_message(discord.Object(id='547646909737598986'), embed=embed)
+  if not reason:
+    await client.say("Please provide a reason")
+    return
+  reason = ' '.join(reason)
 
 
 
