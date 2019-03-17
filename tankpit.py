@@ -49,8 +49,7 @@ async def eight_ball():
 @client.command(pass_context=True)
 async def help(ctx):
        embed = discord.Embed(title=' ', description='Prefix: .', color=0x4ec115)
-       embed.add_field(name="TankPit Commands", value="``.tp`` ``.prf`` ``.report`` ``.id``\n 
-       ``.tourny`` ``.results`` ``.bb`` ``.pst``.season", inline=True)
+       embed.add_field(name="TankPit Commands", value="``.tp`` ``.prf`` ``.report`` ``.id`` ``.tourny`` ``.results`` ``.bb`` ``.pst`` ``.season``", inline=True)
        embed.add_field(name="General Commands", value="``help``,``info``,``8ball``,``serverinfo``", inline=False)
        embed.set_author(name="TankPit Command List", icon_url='https://tankpit.com/images/icons/red_orb.png')
        embed.set_thumbnail(url='https://tankpit.com/images/icons/green.png')
@@ -58,7 +57,7 @@ async def help(ctx):
        embed.set_footer(text='To get tank stats set your tank stats to public')
 
        await client.send_message(ctx.message.author, embed=embed)
-       
+
 #-----------Server commands-------------
 @client.command(pass_context=True)
 async def serverinfo(ctx):
@@ -258,7 +257,7 @@ async def prf(ctx, tank):
         embed.add_field(name=f'{NAME5}\n{awards5}', value=f"{space}", inline=True)
         await client.say(embed=embed)
 
-                
+
 @client.command(pass_context = True)
 async def report(ctx,user:discord.User,*reason:str):
   embed = discord.Embed(title="", description="User Reports",  color =0xdd3d20)
@@ -268,7 +267,7 @@ async def report(ctx,user:discord.User,*reason:str):
     await client.say("Please provide a reason")
     return
   reason = ' '.join(reason)
-  
+
 @client.command()
 async def id(tank_id):
     async with aiohttp.ClientSession()as session:
@@ -324,7 +323,7 @@ async def id(tank_id):
         except:
             embed.add_field(name="Awards", value='\u200b', inline=False)
         await client.say(embed=embed)
-        
+
 #----------tankpit site stats commands---------
 @client.command(pass_context=True)
 async def acti():
@@ -346,7 +345,7 @@ async def acti():
 
 
 @client.command()
-async def activity():/# NOTE: NEEDS FIXED
+async def activity(): # NOTE: NEEDS FIXED
     async with aiohttp.ClientSession()as session:
         response = await session.get('https://tankpit.com/api/active_games')
         resp = await response.json()
@@ -399,7 +398,7 @@ async def ntourny():
 
 
 
-@client.command()/# NOTE: NEEDS FIXED
+@client.command()# NOTE: NEEDS FIXED
 async def results(id):
     async with aiohttp.ClientSession()as session:
         response = await session.get('https://tankpit.com/api/tournament_results?tournament_id=' + id)
@@ -598,7 +597,7 @@ async def bb(year, month, day):
         except:
             print("m13 None")
         await client.say(embed=embed)
-        
+
 @client.command()
 async def season(year):
     async with aiohttp.ClientSession()as session:
