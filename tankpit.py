@@ -50,7 +50,7 @@ async def eight_ball():
 async def help(ctx):
        embed = discord.Embed(title=' ', description='Prefix: .', color=0x4ec115)
        embed.add_field(name="TankPit Commands", value="``.tp`` ``.prf`` ``.report`` ``.id``\n 
-       ``.tourny`` ``.results`` ``.bb`` ``.pst`` ``.season", inline=True)
+       ``.tourny`` ``.results`` ``.bb`` ``.pst``.season", inline=True)
        embed.add_field(name="General Commands", value="``help``,``info``,``8ball``,``serverinfo``", inline=False)
        embed.set_author(name="TankPit Command List", icon_url='https://tankpit.com/images/icons/red_orb.png')
        embed.set_thumbnail(url='https://tankpit.com/images/icons/green.png')
