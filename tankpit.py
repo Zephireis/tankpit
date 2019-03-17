@@ -119,7 +119,7 @@ async def tp(ctx, *tank:str):
         try:
             deac = resp ["map_data"]["World"]["deactivated"]
         except:
-            embed.set_footer(text="Players 'World' Stats 'deactivated'n ot set to public")
+            embed.set_footer(text="Players 'World' Stats 'deactivated' not set to public")
 
 
         lastplayed =  resp.get("last_played", "\u200b")
@@ -160,17 +160,13 @@ async def tp(ctx, *tank:str):
             embed.add_field(name="Deaths", value=f'{deac}{space}', inline=True)
         except:
             embed.add_field(name="Deaths", value='\u200b', inline=True)
-
-        embed.add_field(name="Last played", value=resp.get("last_played", "\u200b"), inline=True)
-        embed.add_field(name="Favorite Map", value=f'{favm}{space}', inline=True)
-        embed.add_field(name="BattleField Tank", value=f'{bftank}{space}', inline=True)
-        embed.add_field(name="Ping", value=f'{pong}{space}', inline=True)
-        embed.add_field(name="Country", value=f'{location}{space}', inline=True)
-        embed.add_field(name="Bio", value=f'{Bio}{space}', inline=True)
         try:
             embed.add_field(name="Cups", value=f'<:B_Cup_New:476303841562853377>x{cups}<:S_Cup_New:476303857924833290>x{cups1}<:G_Cup_New:476303868486221824>x{cups2}{space}', inline=True)
         except:
-            embed.add_field(name="Cups", value=f"{a}{b}{c}", inline=False)
+            embed.add_field(name="Cups", value=f"{a}{b}{c}", inline=True)
+
+        embed.add_field(name="Last played", value=resp.get("last_played", "\u200b"), inline=True)
+
         await client.say(embed=embed)
 
 
