@@ -529,7 +529,7 @@ async def activity():
 
 
 @client.command()
-async def ntourny():
+async def tourny():
     async with aiohttp.ClientSession()as session:
         response = await session.get('https://tankpit.com/api/upcoming_tournaments')
         resp = await response.json()
