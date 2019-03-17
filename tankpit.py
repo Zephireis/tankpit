@@ -479,7 +479,7 @@ async def results(id):
         none ="???"
 
         embed = discord.Embed(title="Tournament Results " + f'{date}', description="",  color =0xdd3d20)
-        embed.add_field(name=""f'1  {color0}  {name0}{awards0}\n2 {color1}  {name1}{awards1}\n3 {color2}  {name2}{awards2}', value=f"4  {color3}  {name3}\n5  {color4}  {name4}\n6  {color5}  {name5}\n7        {color6}  {name6}\n8  {color7}  {name7}\n9  {color8}  {name8}\n10{color9}  {name9}", inline=False)
+        embed.add_field(name=f"{space}", value=f"1 {color0}  {name0}{awards0}\n2 {color1}  {name1}{awards1}\n3 {color2}  {name2}{awards2}\n4 {color3}  {name3}\n5 {color4}  {name4}\n6 {color5}  {name5}\n7 {color6}  {name6}\n8 {color7}  {name7}\n9 {color8}  {name8}\n10{color9}  {name9}", inline=False)
 
         await client.say(embed=embed)
 
