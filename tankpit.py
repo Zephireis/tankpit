@@ -10,14 +10,13 @@ import asyncio
 import threading
 import typing
 
-
 from discord import Game
 from bs4 import BeautifulSoup
 from discord.ext.commands import Bot
 
 
 
-TOKEN = "MjcxMzcwODc3NzAxMDYyNjY3.D0c35A.EQYFgFoWeKtyXs5PN5ZatKdSHSc"
+TOKEN = "Mjg0OTM0NTk2MjkzMDMzOTg0.D0do_w.1DPSNmuzLta3CDOLr6ilD3AxvEo"
 BOT_PREFIX = ".","?"
 
 
@@ -50,7 +49,8 @@ async def eight_ball():
 @client.command(pass_context=True)
 async def help(ctx):
        embed = discord.Embed(title=' ', description='Prefix: .', color=0x4ec115)
-       embed.add_field(name="TankPit Commands", value="``activity``,``top25``,``tp``,``id``", inline=True)
+       embed.add_field(name="TankPit Commands", value="``.tp`` ``.prf`` ``.report`` ``.id``\n 
+       ``.tourny`` ``.results`` ``.bb`` ``.pst`` ``.season", inline=True)
        embed.add_field(name="General Commands", value="``help``,``info``,``8ball``,``serverinfo``", inline=False)
        embed.set_author(name="TankPit Command List", icon_url='https://tankpit.com/images/icons/red_orb.png')
        embed.set_thumbnail(url='https://tankpit.com/images/icons/green.png')
@@ -58,11 +58,7 @@ async def help(ctx):
        embed.set_footer(text='To get tank stats set your tank stats to public')
 
        await client.send_message(ctx.message.author, embed=embed)
-
-
-
-
-
+       
 #-----------Server commands-------------
 @client.command(pass_context=True)
 async def serverinfo(ctx):
@@ -78,50 +74,6 @@ async def serverinfo(ctx):
        await client.say(embed=embed)
 
 #--------PlayerStats commands------------
-
-@client.command()
-async def tpa(tank_name, ):
-
-    async with aiohttp.ClientSession()as session:
-        response = await session.get('https://tankpit.com/api/find_tank?name=' + tank_name)
-        resp_json = await response.json()
-
-
-        awards_dict = {0: '', 1: '🙃', 2: '🤣', 3: '😃'}# set one through three for value 1 in json
-        awards_string = ''
-        for awards in resp_json[0]["awards"][0:3]:
-            awards_string += awards_dict.get(awards,'' )
-        await client.say(awards_string)
-
-
-@client.command(pass_context=True)
-async def add1(ctx, tank):
-    async with aiohttp.ClientSession()as session:
-        response = await session.get(f'https://tankpit.com/api/find_tank?name={tank}')
-        resp_json = await response.json()
-        awards = award_string(resp_json[0]['awards'])
-        data = resp_json[0]['tank_id']
-        with open('users.json', 'w') as outfile:
-            json.dump(f'{data}', outfile)
-
-@client.command()
-async def add(tank):
-    async with aiohttp.ClientSession()as session:
-        response = await session.get(f'https://tankpit.com/api/find_tank?name={tank}')
-        resp_json = await response.json()
-        data = resp_json[0]['name']
-        with open('users.json', 'w' )as f:
-            json.dump(data, f)
-
-    await update_data(users, user)
-    if not user.id in users:
-        users[user.id] = {}
-        users[user.id][tank2]
-        with open('users.json', 'r') as a:
-            text = json.load(a)
-            await client.say(text)
-
-
 
 def award_string(seq: list) -> str:
     emoji_set = [
@@ -182,16 +134,16 @@ async def tp(ctx, *tank:str):
 
         try:
             cups = resp['user_tournament_victories'] ['bronze']
-        except:
-            print("No Bronze")
+        except KeyError:
+            a = "<:B_Cup_New:476303841562853377>x0"
         try:
             cups1 = resp['user_tournament_victories'] ['silver']
         except:
-            b= "\u200b"
+            b= "<:S_Cup_New:476303857924833290>x0"
         try:
             cups2 = resp['user_tournament_victories'] ['gold']
         except:
-            c = "\u200b"
+            c = "<:G_Cup_New:476303868486221824>x0"
 
         try:
             embed.add_field(name="Time Played", value=f'{time}{space}', inline=True)
@@ -215,13 +167,14 @@ async def tp(ctx, *tank:str):
         embed.add_field(name="BattleField Tank", value=f'{bftank}{space}', inline=True)
         embed.add_field(name="Ping", value=f'{pong}{space}', inline=True)
         embed.add_field(name="Country", value=f'{location}{space}', inline=True)
+        embed.add_field(name="Bio", value=f'{Bio}{space}', inline=True)
         try:
             embed.add_field(name="Cups", value=f'<:B_Cup_New:476303841562853377>x{cups}<:S_Cup_New:476303857924833290>x{cups1}<:G_Cup_New:476303868486221824>x{cups2}{space}', inline=True)
         except:
-            embed.add_field(name="Cups", value='\u200b', inline=True)
-        embed.add_field(name="Bio", value=f'{Bio}{space}', inline=False)
+            embed.add_field(name="Cups", value=f"{a}{b}{c}", inline=False)
         await client.say(embed=embed)
-        
+
+
 @client.command(pass_context=True)
 async def prf(ctx, tank):
     async with aiohttp.ClientSession()as session:
@@ -305,65 +258,17 @@ async def prf(ctx, tank):
         embed.add_field(name=f'{NAME5}\n{awards5}', value=f"{space}", inline=True)
         await client.say(embed=embed)
 
-
-
-@client.command()
-async def ad(tank):
-    with open('users.json', 'r')as f:
-        users = json.load(f)
-
-        await update_data(users, tank)
-
-        with open('users.json', 'w')as f:
-            json.dump(users, f)
-        await client.say(f'Added {tank} to profile')
-
-
-async def update_data(users, tanks):
-    if not tanks in users:
-        users[tanks] = {}
-        users[tanks]['Name'] = tanks
-        users[tanks]['level'] = 1
-
-@client.command()
-async def acc():
-    with open('users.json') as f:
-        d = json.load(f)
-        result = d['GeneralSick']['Name']
-        result1 = d ['Discord']['Name']
-        result2 = d['Fuel Medic']['Name']
-        embed = discord.Embed(title="Profile", description="Tanks Of GeneralSick", color=0x00ff00)
-        async with aiohttp.ClientSession()as session:
-            response = await session.get(f'https://tankpit.com/api/find_tank?name={result}')
-            resp_json = await response.json()
-            b = award_string(resp_json[0]['awards'])
-            embed.add_field(name=resp_json[0]['name'], value=b, inline=True)
-
-
-        async with aiohttp.ClientSession()as sess:
-            respons = await sess.get(f'https://tankpit.com/api/find_tank?name={result1}')
-            resp = await respons.json()
-            awards1 = award_string(resp[0]['awards'])
-            embed.add_field(name=resp[0]['name'], value=awards1, inline=True)
-
-
-        async with aiohttp.ClientSession()as sess2:
-            respons2 = await sess2.get(f'https://tankpit.com/api/find_tank?name={result2}')
-            print(result2)
-            resp2 = await respons2.json()
-            a = award_string(resp2[0]['awards'])
-            embed.add_field(name=resp2[0]['name'], value=a, inline=True)
-
-            await client.say(embed=embed)
-
-@client.command(pass_context=True)
-async def create(ctx, file):
-    f= open(f'{file}.txt',"w+")
-    await client.say("{} is your name".format(ctx.message.author.mention))
-
-
-
-
+                
+@client.command(pass_context = True)
+async def report(ctx,user:discord.User,*reason:str):
+  embed = discord.Embed(title="", description="User Reports",  color =0xdd3d20)
+  embed.add_field(name=f'{user}', value=f'{reason}', inline=True)
+  await client.send_message(discord.Object(id='553833349651628052'), embed=embed)
+  if not reason:
+    await client.say("Please provide a reason")
+    return
+  reason = ' '.join(reason)
+  
 @client.command()
 async def id(tank_id):
     async with aiohttp.ClientSession()as session:
@@ -420,55 +325,6 @@ async def id(tank_id):
             embed.add_field(name="Awards", value='\u200b', inline=False)
         await client.say(embed=embed)
         
-
-
-
-#r = requests.get('https://tankpit.com/api/tank?tank_id=3582')
-#r.get("last_played", "\u200b")
-#print(r.json)
-#@client.command()
-#async def ht():
-#await client.say(lastplayed)
-
-#@client.command()
-#async def feed(tan):
-    #embed = discord.Embed(title="", description="", color=0x00ff00)
-    #async with aiohttp.ClientSession()as session:
-        #while True:
-            #response = await session.get('https://tankpit.com/api/tank?tank_id=' + tan )
-            #await asyncio.sleep(5)
-            #resp = await response.json()
-            #tptank2 = resp.get("name", "N/A")
-            #kills4 = resp["map_data"]["World"]["destroyed_enemies"]
-            #kills = resp["map_data"]["World"]["destroyed_enemies"]
-            #ranks = resp["map_data"]["World"]["rank"]
-            #if kills == 12:
-                #embed.add_field(name=f"{tptank2}", value=f"Has been awarded test award {kills}", inline=True)
-                #await client.say(embed=embed)
-                #break
-            #else:
-                #break
-
-
-@client.command(pass_context = True)
-async def report(ctx,user:discord.User,*reason:str):
-  embed = discord.Embed(title="", description="User Reports",  color =0xdd3d20)
-  embed.add_field(name=f'{user}', value=f'{reason}', inline=True)
-  await client.send_message(discord.Object(id='553833349651628052'), embed=embed)
-  if not reason:
-    await client.say("Please provide a reason")
-    return
-  reason = ' '.join(reason)
-
-
-
-
-
-
-
-
-
-
 #----------tankpit site stats commands---------
 @client.command(pass_context=True)
 async def acti():
@@ -490,7 +346,7 @@ async def acti():
 
 
 @client.command()
-async def activity():
+async def activity():/# NOTE: NEEDS FIXED
     async with aiohttp.ClientSession()as session:
         response = await session.get('https://tankpit.com/api/active_games')
         resp = await response.json()
@@ -529,7 +385,7 @@ async def activity():
 
 
 @client.command()
-async def tourny():
+async def ntourny():
     async with aiohttp.ClientSession()as session:
         response = await session.get('https://tankpit.com/api/upcoming_tournaments')
         resp = await response.json()
@@ -538,11 +394,12 @@ async def tourny():
         embed.add_field(name="End Time", value=resp[0]['end_time_utc'], inline=True)
         embed.add_field(name="Map", value=resp[0]['map'], inline=True)
         embed.add_field(name="Start Time", value=resp[1]['start_time_utc'], inline=True)
+        embed.add_field(name="End Time", value=resp[1]['end_time_utc'], inline=True)
         await client.say(embed=embed)
 
 
 
-@client.command()
+@client.command()/# NOTE: NEEDS FIXED
 async def results(id):
     async with aiohttp.ClientSession()as session:
         response = await session.get('https://tankpit.com/api/tournament_results?tournament_id=' + id)
@@ -741,7 +598,34 @@ async def bb(year, month, day):
         except:
             print("m13 None")
         await client.say(embed=embed)
+        
+@client.command()
+async def season(year):
+    async with aiohttp.ClientSession()as session:
+        response = await session.get('https://tankpit.com/api/leaderboards/'+year)
+        resp = await response.json()
+        space ="\u200b"
+        leader= resp["leaderboard"]
+        awards0 = award_string(resp['results'][0]['awards'])
+        tank0 = resp["results"][0]["name"]
+        color0 = resp['results'][0]["color"]
+        place0 = resp['results'][0]["placing"]
 
+        COLORS = {
+        'red': '0xff0000',
+        'blue': '',
+        'purple': '0xf10ee0',
+        'orange': '',
+        }
+        color0 = COLORS[color0]
+
+        embed = discord.Embed(title="Season"+" "f'{leader}', description="",  color =color0)
+        embed.set_author(name="TankPit Leaderboards", url="https://discordapp.com", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
+        embed.set_thumbnail(url="https://tankpit.com/images/icons/classy.png")
+        embed.add_field(name="1 "f'{color0}  {tank0}{awards0}', value="None", inline=False)
+
+
+        await client.say(embed=embed)
 
 @client.command()
 async def pst(id):
@@ -765,113 +649,6 @@ async def pst(id):
         await client.say(embed=embed)
 
 
-@client.command()
-async def b(leaderboard, color, rank, name):
-    async with aiohttp.ClientSession()as session:
-        response = await session.get(f'tankpit.com/api/leaderboards/?leaderboard={leaderboard}&color={color}&rank={rank}&search={name}')
-        resp = await response.json()
-        name0 = resp["results"][0]["name"]
-
-        await client.say(name0)
-
-
-
-
-
-
-
-
-@client.command()
-async def bbb(year,month,day):
-    async with aiohttp.ClientSession()as session:
-        a="&"
-
-        response = await session.get('https://tankpit.com/api/bb/?year='+f'{year}'f'{month}'f'{day}')
-        resp = await response.json()
-        name = resp[0]["tank_name"]
-        embed = discord.Embed(title="", description="",  color =0xdd3d20)
-        embed.add_field(name="test", value=f'{name}', inline=True)
-        await client.say(embed=embed)
-
-
-@client.command()
-async def season(year):
-    async with aiohttp.ClientSession()as session:
-        response = await session.get('https://tankpit.com/api/leaderboards/'+year)
-        resp = await response.json()
-        space ="\u200b"
-        leader= resp["leaderboard"]
-        awards0 = award_string(resp['results'][0]['awards'])
-        awards1 = award_string(resp['results'][1]['awards'])
-        awards2 = award_string(resp['results'][2]['awards'])
-        awards3 = award_string(resp['results'][3]['awards'])
-        awards4 = award_string(resp['results'][4]['awards'])
-        awards5 = award_string(resp['results'][5]['awards'])
-        awards6 = award_string(resp['results'][6]['awards'])
-        awards7 = award_string(resp['results'][7]['awards'])
-        awards8 = award_string(resp['results'][8]['awards'])
-        awards9 = award_string(resp['results'][9]['awards'])
-        awards10 = award_string(resp['results'][10]['awards'])
-        tank0 = resp["results"][0]["name"]
-        tank1 = resp["results"][1]["name"]
-        tank2 = resp["results"][2]["name"]
-        tank3 = resp["results"][3]["name"]
-        tank4 = resp["results"][4]["name"]
-        tank5 = resp["results"][5]["name"]
-        tank6 = resp["results"][6]["name"]
-        tank7 = resp["results"][7]["name"]
-        tank8 = resp["results"][8]["name"]
-        tank9 = resp["results"][9]["name"]
-        tank10 = resp["results"][10]["name"]
-        color0 = resp['results'][0]["color"]
-        color1 = resp['results'][1]["color"]
-        color2 = resp['results'][2]["color"]
-        color3 = resp['results'][3]["color"]
-        color4 = resp['results'][4]["color"]
-        color5 = resp['results'][5]["color"]
-        color6 = resp['results'][6]["color"]
-        color7 = resp['results'][7]["color"]
-        color8 = resp['results'][8]["color"]
-        color9 = resp['results'][9]["color"]
-        color10 = resp['results'][10]["color"]
-        place0 = resp['results'][0]["placing"]
-        place1 = resp['results'][1]["placing"]
-        place2 = resp['results'][2]["placing"]
-        place3 = resp['results'][3]["placing"]
-        place4 = resp['results'][4]["placing"]
-        place5 = resp['results'][5]["placing"]
-        place6 = resp['results'][6]["placing"]
-        place7 = resp['results'][7]["placing"]
-        place8 = resp['results'][8]["placing"]
-        place9 = resp['results'][9]["placing"]
-        place10 = resp['results'][10]["placing"]
-        COLORS = {
-        'red': '<:r_:524455235188424718>',
-        'blue': '<:b_:480148438487531520>',
-        'purple': '<:p_:524458234803650580>',
-        'orange': '<:o_:524458234694860800>',
-        }
-        color0 = COLORS[color0]
-        color1 = COLORS[color1]
-        color2 = COLORS[color2]
-        color3 = COLORS[color3]
-        color4 = COLORS[color4]
-        color5 = COLORS[color5]
-        color6 = COLORS[color6]
-        color7 = COLORS[color7]
-        color8 = COLORS[color8]
-        color9 = COLORS[color9]
-        embed = discord.Embed(title="Season"+" "f'{leader}', description="",  color =0xdd3d20)
-        embed.set_author(name="TankPit Leaderboards", url="https://discordapp.com", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
-        embed.set_thumbnail(url="https://tankpit.com/images/icons/classy.png")
-        embed.add_field(name="1 "f'{color0}  {tank0}{awards0}', value="2 "f'{color1}  {tank1}{awards1}', inline=False)
-        embed.add_field(name="3 "f'{color2}  {tank2}{awards2}', value="4 "f'{color3}  {tank3}{awards3}', inline=False)
-        embed.add_field(name="5 "f'{color4}  {tank4}{awards4}', value="6 "f'{color5}  {tank5}{awards5}', inline=False)
-        embed.add_field(name="7 "f'{color6}  {tank6}{awards6}', value="8 "f'{color7}  {tank7}{awards7}', inline=False)
-        embed.add_field(name="9 "f'{color8}  {tank8}{awards8}', value="10"f'{color9}  {tank9}{awards9}', inline=False)
-        
-        await client.say(embed=embed)
-
 
 
 #-----------events-------------------
@@ -882,8 +659,8 @@ async def season(year):
 async def on_member_join(member):
     embed=discord.Embed(title="Welcome to the TankPit HQ Discord", description=" ",  color =0x7d2789)
     embed.set_thumbnail(url="https://tankpit.com/images/icons/orange_orb.png")
-    embed.add_field(name="About", value="This community is a collaboration of friends, gamers and the unknown. BEWARE of the unknown At the bottom left is a cogwheel where you can access User Settings. Please set up your voice settings, profile, notifications, etc. there! If you need help,just ask! ADMIN  Only the ADMIN will have access to priority settings for the server. Please reach out to @GeneralSick  ⚒  or @Grimlock#6475 Little word of advice if you're new to the game should keep your main tank under some privacy in here or the hyenas of the community will be out to hunt you down", inline=True)
-    embed.add_field(name="Rules", value="Be respectful to others \n•Please do not spam \n•Don't abuse mentions \n•Keep the drama to an A-B conversation \n•Respect the choice of music \n•If players abuse the ;;skip command, a voting policy will be in place", inline=True)
+    embed.add_field(name="About", value="", inline=True)
+    embed.add_field(name="Rules", value="", inline=True)
     embed.add_field(name="TankPit Bot Commands", value="``help``, ``8ball``, ``tankhere``, ``serverinfo``, ``info@username``, ``activity``, ``top25``, ``tp``,``id``", inline=True)
     await client.send_message(member, embed=embed)
     channel = discord.utils.get(member.server.channels, name="general")
@@ -905,6 +682,10 @@ async def on_message(message):
     if message.content == '.alertsoff':
         role = discord.utils.get(message.server.roles, name='Active Duty')
         await client.remove_roles(message.author, role)
+    if message.content.startswith('$hey'):
+        await client.send_message(message.channel, 'Say hello')
+        msg = await client.wait_for_message(author=message.author, content='hello')
+        await client.send_message(message.channel, 'Hello.')
     await client.process_commands(message)
 
 @client.command(name='alertson')
