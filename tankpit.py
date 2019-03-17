@@ -493,7 +493,7 @@ async def bb(year, month, day):
         response = await session.get('https://tankpit.com/api/bb?year='f'{year}&month={month}&day={day}')
         resp = await response.json()
         awards0 = award_string(resp[0]['awards'])
-        embed = discord.Embed(title="TankPit BulletinBoard 📖", description= "a",  color =0xdd3d20)
+        embed = discord.Embed(title="TankPit BulletinBoard 📖", description= "",  color =0xdd3d20)
 
         try:
             awards0 = award_string(resp[0]['awards'])
