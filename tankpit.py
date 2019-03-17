@@ -394,7 +394,7 @@ async def tourny():
 
 
 
-@client.command()# NOTE: NEEDS FIXED
+@client.command()
 async def results(id):
     async with aiohttp.ClientSession()as session:
         response = await session.get('https://tankpit.com/api/tournament_results?tournament_id=' + id)
@@ -415,6 +415,33 @@ async def results(id):
         place12 = resp["results"][12]["placing"]
         place13 = resp["results"][13]["placing"]
         place14 = resp["results"][14]["placing"]
+        color0 = resp['results'][0]["color"]
+        color1 = resp['results'][1]["color"]
+        color2 = resp['results'][2]["color"]
+        color3 = resp['results'][3]["color"]
+        color4 = resp['results'][4]["color"]
+        color5 = resp['results'][5]["color"]
+        color6 = resp['results'][6]["color"]
+        color7 = resp['results'][7]["color"]
+        color8 = resp['results'][8]["color"]
+        color9 = resp['results'][9]["color"]
+        color10 = resp['results'][10]["color"]
+        COLORS = {
+        'red': '<:r_:524455235188424718>',
+        'blue': '<:b_:480148438487531520>',
+        'purple': '<:p_:524458234803650580>',
+        'orange': '<:o_:524458234694860800>',
+        }
+        color0 = COLORS[color0]
+        color1 = COLORS[color1]
+        color2 = COLORS[color2]
+        color3 = COLORS[color3]
+        color4 = COLORS[color4]
+        color5 = COLORS[color5]
+        color6 = COLORS[color6]
+        color7 = COLORS[color7]
+        color8 = COLORS[color8]
+        color9 = COLORS[color9]
         name0 = resp["results"][0]["name"]
         name1 = resp["results"][1]['name']
         name2 = resp["results"][2]['name']
@@ -449,37 +476,12 @@ async def results(id):
         awards0 = award_string(resp['results'][0]['awards'])
         awards1 = award_string(resp['results'][1]['awards'])
         awards2 = award_string(resp['results'][2]['awards'])
-        awards3 = award_string(resp['results'][3]['awards'])
-        awards4 = award_string(resp['results'][4]['awards'])
-        awards5 = award_string(resp['results'][5]['awards'])
-        awards6 = award_string(resp['results'][6]['awards'])
-        awards7 = award_string(resp['results'][7]['awards'])
-        awards8 = award_string(resp['results'][8]['awards'])
-        awards9 = award_string(resp['results'][9]['awards'])
-        awards10 = award_string(resp['results'][10]['awards'])
-        awards11 = award_string(resp['results'][11]['awards'])
-        awards12 = award_string(resp['results'][12]['awards'])
-        awards13 = award_string(resp['results'][13]['awards'])
-        awards14 = award_string(resp['results'][14]['awards'])
-        none ="‍▪️"
+
+        none ="???"
 
         embed = discord.Embed(title="Tournament Results " + f'{date}', description="",  color =0xdd3d20)
-        embed.add_field(name="Placing""", value='#'f'``{place0}``'' 'f'**{name0}**'f'{awards0}'"\n"f'{space}'' 'f'{space}'"\n"
-        '#'f'``{place1}``'' 'f'**{name1}**'f'{awards1}'"\n"f'{space}'' 'f'{space}'"\n"
-        '#'f'``{place2}``'' 'f'**{name2}**'f'{awards2}'"\n"f'{space}'' 'f'{space}'"\n"
-        '#'f'``{place4}``'' 'f'**{name3}**'"\n"f'{space}'' 'f'{space}'"\n"
-        '#'f'``{place5}``'' 'f'**{name4}**'"\n"f'{space}'' 'f'{space}'"\n"
-        '#'f'``{place6}``'' 'f'**{name5}**'"\n"f'{space}'' 'f'{space}'"\n"
-        '#'f'``{place7}``'' 'f'**{name6}**'"\n"f'{space}'' 'f'{space}'"\n"
-        '#'f'``{place8}``'' 'f'**{name7}**'"\n"f'{space}'' 'f'{space}'"\n"
-        '#'f'``{place9}``'' 'f'**{name8}**'"\n"f'{space}'' 'f'{space}'"\n"
-        '#'f'``{place10}``'' 'f'**{name9}**'"\n"f'{space}'' 'f'{space}'"\n"
-        '#'f'``{place11}``'' 'f'**{name10}**'"\n"f'{space}'' 'f'{space}'"\n"
-        '#'f'``{place12}``'' 'f'**{name11}**'"\n"f'{space}'' 'f'{space}'"\n"
-        '#'f'``{place13}``'' 'f'**{name12}**'"\n"f'{space}'' 'f'{space}'"\n"
-        '#'f'``{place13}``'' 'f'**{name13}**'"\n"f'{space}'' 'f'{space}'"\n"
-        '#'f'``{place14}``'' 'f'**{name14}**'f"\n"f'{space}'' 'f'{space}'"\n", inline=True)#mark
-        embed.add_field(name='Rank', value=f'{rank0}')
+        embed.add_field(name=""f'1  {color0}  {name0}{awards0}\n2 {color1}  {name1}{awards1}\n3 {color2}  {name2}{awards2}', value=f"4  {color3}  {name3}\n5  {color4}  {name4}\n6  {color5}  {name5}\n7        {color6}  {name6}\n8  {color7}  {name7}\n9  {color8}  {name8}\n10{color9}  {name9}", inline=False)
+
         await client.say(embed=embed)
 
 
