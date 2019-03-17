@@ -40,7 +40,7 @@ async def eight_ball():
     'sure',
     'no',
     'maybe',
-    'its quite possiblec'
+    'its quite possible'
 
     ]
     await client.say(random.choice(possible_responses))
