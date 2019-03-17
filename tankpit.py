@@ -384,7 +384,7 @@ async def activity(): # NOTE: NEEDS FIXED
 
 
 @client.command()
-async def ntourny():
+async def tourny():
     async with aiohttp.ClientSession()as session:
         response = await session.get('https://tankpit.com/api/upcoming_tournaments')
         resp = await response.json()
@@ -606,25 +606,76 @@ async def season(year):
         space ="\u200b"
         leader= resp["leaderboard"]
         awards0 = award_string(resp['results'][0]['awards'])
+        awards1 = award_string(resp['results'][1]['awards'])
+        awards2 = award_string(resp['results'][2]['awards'])
+        awards3 = award_string(resp['results'][3]['awards'])
+        awards4 = award_string(resp['results'][4]['awards'])
+        awards5 = award_string(resp['results'][5]['awards'])
+        awards6 = award_string(resp['results'][6]['awards'])
+        awards7 = award_string(resp['results'][7]['awards'])
+        awards8 = award_string(resp['results'][8]['awards'])
+        awards9 = award_string(resp['results'][9]['awards'])
+        awards10 = award_string(resp['results'][10]['awards'])
         tank0 = resp["results"][0]["name"]
+        tank1 = resp["results"][1]["name"]
+        tank2 = resp["results"][2]["name"]
+        tank3 = resp["results"][3]["name"]
+        tank4 = resp["results"][4]["name"]
+        tank5 = resp["results"][5]["name"]
+        tank6 = resp["results"][6]["name"]
+        tank7 = resp["results"][7]["name"]
+        tank8 = resp["results"][8]["name"]
+        tank9 = resp["results"][9]["name"]
+        tank10 = resp["results"][10]["name"]
         color0 = resp['results'][0]["color"]
+        color1 = resp['results'][1]["color"]
+        color2 = resp['results'][2]["color"]
+        color3 = resp['results'][3]["color"]
+        color4 = resp['results'][4]["color"]
+        color5 = resp['results'][5]["color"]
+        color6 = resp['results'][6]["color"]
+        color7 = resp['results'][7]["color"]
+        color8 = resp['results'][8]["color"]
+        color9 = resp['results'][9]["color"]
+        color10 = resp['results'][10]["color"]
         place0 = resp['results'][0]["placing"]
-
+        place1 = resp['results'][1]["placing"]
+        place2 = resp['results'][2]["placing"]
+        place3 = resp['results'][3]["placing"]
+        place4 = resp['results'][4]["placing"]
+        place5 = resp['results'][5]["placing"]
+        place6 = resp['results'][6]["placing"]
+        place7 = resp['results'][7]["placing"]
+        place8 = resp['results'][8]["placing"]
+        place9 = resp['results'][9]["placing"]
+        place10 = resp['results'][10]["placing"]
         COLORS = {
-        'red': '0xff0000',
-        'blue': '',
-        'purple': '0xf10ee0',
-        'orange': '',
+        'red': '<:r_:524455235188424718>',
+        'blue': '<:b_:480148438487531520>',
+        'purple': '<:p_:524458234803650580>',
+        'orange': '<:o_:524458234694860800>',
         }
         color0 = COLORS[color0]
-
-        embed = discord.Embed(title="Season"+" "f'{leader}', description="",  color =color0)
+        color1 = COLORS[color1]
+        color2 = COLORS[color2]
+        color3 = COLORS[color3]
+        color4 = COLORS[color4]
+        color5 = COLORS[color5]
+        color6 = COLORS[color6]
+        color7 = COLORS[color7]
+        color8 = COLORS[color8]
+        color9 = COLORS[color9]
+        embed = discord.Embed(title="Season"+" "f'{leader}', description="",  color =0xdd3d20)
         embed.set_author(name="TankPit Leaderboards", url="https://discordapp.com", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
         embed.set_thumbnail(url="https://tankpit.com/images/icons/classy.png")
-        embed.add_field(name="1 "f'{color0}  {tank0}{awards0}', value="None", inline=False)
-
-
+        embed.add_field(name="1 "f'{color0}  {tank0}{awards0}', value="2 "f'{color1}  {tank1}{awards1}', inline=False)
+        embed.add_field(name="3 "f'{color2}  {tank2}{awards2}', value="4 "f'{color3}  {tank3}{awards3}', inline=False)
+        embed.add_field(name="5 "f'{color4}  {tank4}{awards4}', value="6 "f'{color5}  {tank5}{awards5}', inline=False)
+        embed.add_field(name="7 "f'{color6}  {tank6}{awards6}', value="8 "f'{color7}  {tank7}{awards7}', inline=False)
+        embed.add_field(name="9 "f'{color8}  {tank8}{awards8}', value="10"f'{color9}  {tank9}{awards9}', inline=False)
+        
         await client.say(embed=embed)
+
 
 @client.command()
 async def pst(id):
