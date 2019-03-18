@@ -8,6 +8,7 @@ import html5lib
 import os
 import asyncio
 import threading
+import sqlite3
 import typing
 
 from discord import Game
@@ -73,6 +74,40 @@ async def serverinfo(ctx):
        await client.say(embed=embed)
 
 #--------PlayerStats commands------------
+
+@client.command(pass_context=True)
+async def create(ctx, file):
+    f= open(f'{file}.db',"w+")
+    await client.say(f"Team ``{file}`` was created".format(ctx.message.author.mention))
+    await client.say(f"add members by using ``.add {file} player.``\nto see roster use ``.roster teamname``")
+
+
+@client.command()
+async def add(team, tank):
+    connection = sqlite3.connect(f'{team}.db')
+    cursor = connection.cursor()
+
+    cursor.execute(f'CREATE TABLE names (id INTEGER PRIMARY KEY, name TEXT)')
+    cursor.execute('INSERT INTO names(name) VALUES(?)', (f'{tank}', ))
+    await client.say(f'{tank} added to team roster')
+
+    connection.commit()
+
+@client.command()
+async def roster(clan):
+    embed = discord.Embed(title="", description="", color=0x00ff00)
+    connection = sqlite3.connect(f'{clan}.db')
+
+    cursor = connection.cursor()
+
+    names = [name[0] for name in cursor.execute("SELECT name FROM names")]
+    await client.say(names)
+
+
+
+
+
+
 
 def award_string(seq: list) -> str:
     emoji_set = [
