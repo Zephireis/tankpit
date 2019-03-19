@@ -815,7 +815,6 @@ async def on_member_remove(member):
 
 
 
-
 @client.event
 async def on_ready():
     embed = discord.Embed(title="", description="",  color =0xff0000)
