@@ -416,15 +416,14 @@ async def activity(): # NOTE: NEEDS FIXED
 @client.command()
 async def tourny():
     async with aiohttp.ClientSession()as session:
-        resp = await session.get('https://tankpit.com/api/upcoming_tournaments')
-        embed = discord.Embed(title="Next Tournament", description="\u200b",  color =0xdd3d20)
+        response = await session.get('https://tankpit.com/api/upcoming_tournaments')
+        resp = await response.json()
+        embed = discord.Embed(title="Upcoming Tournaments", description="",  color =0xdd3d20)
         embed.add_field(name="Start Time", value=resp[0]['start_time_utc'], inline=True)
         embed.add_field(name="End Time", value=resp[0]['end_time_utc'], inline=True)
         embed.add_field(name="Map", value=resp[0]['map'], inline=True)
-        embed.add_field(name="Start Time", value=resp[1]['start_time_utc'], inline=True)
-        embed.add_field(name="End Time", value=resp[1]['end_time_utc'], inline=True)
-        embed.add_field(name="Map", value=resp[1]['map'], inline=True)
         await client.say(embed=embed)
+
 
 
 
