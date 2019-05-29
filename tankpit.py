@@ -9,6 +9,7 @@ import os
 import asyncio
 import threading
 import sqlite3
+import typing
 
 
 from discord import Game
