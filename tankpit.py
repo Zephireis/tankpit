@@ -9,7 +9,7 @@ import os
 import asyncio
 import threading
 import sqlite3
-import typing
+
 
 from discord import Game
 from bs4 import BeautifulSoup
