@@ -8,7 +8,7 @@ import html5lib
 import os
 import asyncio
 import threading
-import sqlite3
+import sqlite
 
 
 
