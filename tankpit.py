@@ -157,14 +157,7 @@ async def tp(ctx, tank:str):
             embed.set_footer(text="Players 'World' Stats 'deactivated' not set to public")
 
 
-        lastplayed =  resp.get("last_played", "\u200b")
-        favm = resp.get("favorite_map", "\u200b")
-        bftank= resp.get("bf_tank_name", "\u200b")
-        pong = resp.get("ping", "\u200b")
-        location = resp.get("country", "\u200b")
-        Bio = resp.get("profile", "\u200b")
-        tptank = resp.get("name", "\u200b")
-        space ="\u200b"
+      
 
         try:
             cups = resp['user_tournament_victories'] ['bronze']
