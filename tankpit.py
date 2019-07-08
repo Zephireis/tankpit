@@ -134,7 +134,7 @@ async def tp(ctx, tank:str):
         ids = resp_json[0]['tank_id']
         NAME = resp_json[0]['name']
         awards = award_string(resp_json[0]['awards'])
-        embed = discord.Embed(title=f'Profile stats of {NAME} {awards}', description="", color=0x18e728)
+        embed = discord.Embed(title=f'Profile stats of {NAME}', description="", color=0x18e728)
         embed.set_footer(text='use command .id'f' {ids}'' for indepth tank stats')
     async with aiohttp.ClientSession()as sess:
         respons = await sess.get(f'https://tankpit.com/api/tank?tank_id={ids}')
@@ -155,8 +155,8 @@ async def tp(ctx, tank:str):
             deac = resp ["map_data"]["World"]["deactivated"]
         except:
             embed.set_footer(text="Players 'World' Stats 'deactivated' not set to public")
-            
-            
+
+
         lastplayed =  resp.get("last_played", "\u200b")
         favm = resp.get("favorite_map", "\u200b")
         bftank= resp.get("bf_tank_name", "\u200b")
@@ -179,7 +179,10 @@ async def tp(ctx, tank:str):
         except:
             c = "<:G_Cup_New:476303868486221824>x0"
 
-    
+        try:
+            embed.add_field(name="Time Played", value=f'{time}{space}', inline=True)
+        except:
+            embed.add_field(name="Time Played", value="\u200b", inline=True)
         try:
             embed.add_field(name="Rank", value=f'{ranks}{space}', inline=True)
         except:
