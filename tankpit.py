@@ -134,7 +134,7 @@ async def tp(ctx, tank:str):
         ids = resp_json[0]['tank_id']
         NAME = resp_json[0]['name']
         awards = award_string(resp_json[0]['awards'])
-        embed = discord.Embed(title=f'Profile stats of {NAME}{NAME}', description="", color=0x18e728)
+        embed = discord.Embed(title=f'Profile stats of {NAME} {awards}', description="", color=0x18e728)
         embed.set_footer(text='use command .id'f' {ids}'' for indepth tank stats')
     async with aiohttp.ClientSession()as sess:
         respons = await sess.get(f'https://tankpit.com/api/tank?tank_id={ids}')
