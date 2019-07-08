@@ -155,9 +155,16 @@ async def tp(ctx, tank:str):
             deac = resp ["map_data"]["World"]["deactivated"]
         except:
             embed.set_footer(text="Players 'World' Stats 'deactivated' not set to public")
-
-
-      
+            
+            
+        lastplayed =  resp.get("last_played", "\u200b")
+        favm = resp.get("favorite_map", "\u200b")
+        bftank= resp.get("bf_tank_name", "\u200b")
+        pong = resp.get("ping", "\u200b")
+        location = resp.get("country", "\u200b")
+        Bio = resp.get("profile", "\u200b")
+        tptank = resp.get("name", "\u200b")
+        space ="\u200b"
 
         try:
             cups = resp['user_tournament_victories'] ['bronze']
@@ -172,10 +179,7 @@ async def tp(ctx, tank:str):
         except:
             c = "<:G_Cup_New:476303868486221824>x0"
 
-        try:
-            embed.add_field(name="Time Played", value=f'{time}{space}', inline=True)
-        except:
-            embed.add_field(name="Time Played", value="\u200b", inline=True)
+    
         try:
             embed.add_field(name="Rank", value=f'{ranks}{space}', inline=True)
         except:
