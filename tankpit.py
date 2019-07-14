@@ -9,6 +9,8 @@ import os
 import asyncio
 import threading
 import sqlite3
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 
 
@@ -25,7 +27,9 @@ BOT_PREFIX = ".","?"
 client = Bot(command_prefix=BOT_PREFIX)
 client.remove_command('help')
 
-
+scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
+creds = ServiceAccountCredentials.from_json_keyfile_name("usertanks-301e55f761c4.json", scope)
+Client = gspread.authorize(creds)
 
 
 #-------FUN COMMANDS--------------
@@ -730,6 +734,161 @@ async def pst(id):
         embed.add_field(name=f'{space}', value="-"f'{name}'" "f'{awards}',inline=False)
         await client.say(embed=embed)
 
+@client.command(pass_context = True)
+async def addprofile(ctx):
+    userid = ctx.message.author.name
+    sheet = Client.open("profile").sheet1
+    cell_list = sheet.findall(f'{userid}')
+    for userid in cell_list:
+        await client.say("Profile already registerd use ``.mytanks`` to display your tanks")
+        break
+    else:
+        data = sheet.get_all_records()
+        row = [f"{userid}"]
+        index = 2
+        sheet.insert_row(row, index)
+        await client.say("Follow Instructions in the DM")
+        await client.send_message(ctx.message.author, '```You have been added to database```\nadd tanks with the following command``.tank1 "Example Tank" use tank2 to add second tank and so on``\nYou are able to do up to 6 tanks')
+
+@client.command(pass_context = True)
+async def tank1(ctx, link):
+    userid = ctx.message.author.name
+    sheet = Client.open("profile").sheet1
+    cell = sheet.find(userid)
+    row_number = cell.row
+    sheet.update_cell(f'{row_number}', 2, f'{link}')
+    await client.say('Tank has been added to database, Display tank in chat by using command ``.mytanks``')
+
+
+@client.command(pass_context = True)
+async def tank2(ctx, link):
+    userid = ctx.message.author.name
+    sheet = Client.open("profile").sheet1
+    cell = sheet.find(userid)
+    row_number = cell.row
+    sheet.update_cell(f'{row_number}', 3, f'{link}')
+    await client.say('Tank2 has been added to database')
+
+    @client.command(pass_context = True)
+    async def tank3(ctx, link):
+        userid = ctx.message.author.name
+        sheet = Client.open("profile").sheet1
+        cell = sheet.find(userid)
+        row_number = cell.row
+        sheet.update_cell(f'{row_number}', 4, f'{link}')
+        await client.say('Tank3 has been added to database')
+
+    @client.command(pass_context = True)
+    async def tank4(ctx, link):
+        userid = ctx.message.author.name
+        sheet = Client.open("profile").sheet1
+        cell = sheet.find(userid)
+        row_number = cell.row
+        sheet.update_cell(f'{row_number}', 5, f'{link}')
+        await client.say('Tank4 has been added to database')
+
+
+    @client.command(pass_context = True)
+    async def tank5(ctx, link):
+        userid = ctx.message.author.name
+        sheet = Client.open("profile").sheet1
+        cell = sheet.find(userid)
+        row_number = cell.row
+        sheet.update_cell(f'{row_number}', 6, f'{link}')
+        await client.say('Tank5 has been added to database')
+        
+@client.command(pass_context = True)
+async def mytanks(ctx):
+    userid = ctx.message.author.name
+    embed = discord.Embed(title=f"Top Tanks of: {userid}", description="", color=0x00ff00)
+    sheet = Client.open("profile").sheet1
+    cell = sheet.find(userid)
+    value = cell.value
+    row_number = cell.row
+    space ="\u200b"
+    try:
+        tank0 = sheet.row_values(f'{row_number}')[1]
+    except IndexError:
+        tank0=None
+    if tank0 ==None:
+        await client.say(f"{userid} has not added any tanks to profile")
+    else:
+        async with aiohttp.ClientSession()as session1:
+            response1 = await session1.get(f'https://tankpit.com/api/find_tank?name={tank0}')
+            resp_json1 = await response1.json()
+            NAME1 = resp_json1[0]['name']
+            awards1 = award_string(resp_json1[0]['awards'])
+            embed.add_field(name=f'{NAME1}\n{awards1}', value=f"{space}", inline=True)
+
+    try:
+        tank1 = sheet.row_values(f'{row_number}')[2]
+    except IndexError:
+        tank1=None
+    if tank1 ==None:
+        print("nothing")
+    else:
+        async with aiohttp.ClientSession()as session2:
+            response2 = await session2.get(f'https://tankpit.com/api/find_tank?name={tank1}')
+            resp_json2 = await response2.json()
+            NAME2 = resp_json2[0]['name']
+            awards2 = award_string(resp_json2[0]['awards'])
+            embed.add_field(name=f'{NAME2}\n{awards2}', value=f"{space}", inline=True)
+    try:
+        tank2 = sheet.row_values(f'{row_number}')[3]
+    except IndexError:
+        tank2=None
+    if tank2 ==None:
+        print("nothing")
+    else:
+        async with aiohttp.ClientSession()as session3:
+            response3 = await session3.get(f'https://tankpit.com/api/find_tank?name={tank2}')
+            resp_json3 = await response3.json()
+            NAME3 = resp_json3[0]['name']
+            awards3 = award_string(resp_json3[0]['awards'])
+            embed.add_field(name=f'{NAME3}\n{awards3}', value=f"{space}", inline=True)
+    try:
+        tank3=sheet.row_values(f'{row_number}')[4]
+    except IndexError:
+        tank3=None
+    if tank3 ==None:
+        print("nothing")
+
+    else:
+        async with aiohttp.ClientSession()as session4:
+            response4 = await session4.get(f'https://tankpit.com/api/find_tank?name={tank3}')
+            resp_json4 = await response4.json()
+            NAME4 = resp_json4[0]['name']
+            awards4 = award_string(resp_json4[0]['awards'])
+            embed.add_field(name=f'{NAME4}\n{awards4}', value=f"{space}", inline=True)
+    try:
+        tank4=sheet.row_values(f'{row_number}')[5]
+    except IndexError:
+        tank4=None
+    if tank4 ==None:
+        print("nothing")
+    else:
+        async with aiohttp.ClientSession()as session5:
+            response5 = await session5.get(f'https://tankpit.com/api/find_tank?name={tank4}')
+            resp_json5 = await response5.json()
+            NAME5 = resp_json5[0]['name']
+            awards5 = award_string(resp_json5[0]['awards'])
+            embed.add_field(name=f'{NAME5}\n{awards5}', value=f"{space}", inline=True)
+    try:
+        tank5=sheet.row_values(f'{row_number}')[6]
+    except IndexError:
+        tank5=None
+    if tank5 ==None:
+        print("nothing")
+        await client.say(embed=embed)
+    else:
+        async with aiohttp.ClientSession()as session6:
+            response6 = await session6.get(f'https://tankpit.com/api/find_tank?name={tank5}')
+            resp_json6 = await response6.json()
+            NAME6 = resp_json6[0]['name']
+            awards6 = award_string(resp_json5[0]['awards'])
+            embed.add_field(name=f'{NAME6}\n{awards6}', value=f"{space}", inline=True)
+
+            await client.say(embed=embed)
 
 
 
