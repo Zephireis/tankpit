@@ -9,7 +9,7 @@ import os
 import asyncio
 import threading
 import sqlite3
-import gspread
+import gsprea
 from oauth2client.service_account import ServiceAccountCredentials
 
 
