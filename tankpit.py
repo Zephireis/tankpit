@@ -28,6 +28,7 @@ BOT_PREFIX = ".","?"
 client = Bot(command_prefix=BOT_PREFIX)
 client.remove_command('help')
 
+gettime = time.time()
 scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
 creds = ServiceAccountCredentials.from_json_keyfile_name("usertanks-301e55f761c4.json", scope)
 Client = gspread.authorize(creds)
