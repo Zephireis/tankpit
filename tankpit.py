@@ -10,7 +10,6 @@ import asyncio
 import threading
 import sqlite3
 import gspread
-import time
 from oauth2client.service_account import ServiceAccountCredentials
 
 
@@ -28,15 +27,11 @@ BOT_PREFIX = ".","?"
 client = Bot(command_prefix=BOT_PREFIX)
 client.remove_command('help')
 
-gettime = time.time()
+
 scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
 creds = ServiceAccountCredentials.from_json_keyfile_name("usertanks-301e55f761c4.json", scope)
 Client = gspread.authorize(creds)
-while(True):
-    #SOME CODE THAT'S BEING EXECUTED 24/7 (MY JUST APPENDS TO SPREADSHEET)
-    if(time.time() - gettime > 60* 59):
-        Client.login()
-        gettime = time.time()
+
 
 
 #-------FUN COMMANDS--------------
