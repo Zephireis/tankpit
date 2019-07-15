@@ -32,6 +32,15 @@ scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/aut
 creds = ServiceAccountCredentials.from_json_keyfile_name("usertanks-301e55f761c4.json", scope)
 Client = gspread.authorize(creds)
 
+def getCell(sheet, r, c, sheetName='profile'):
+    client.login()
+    try:
+        return client.open(sheetName).get_worksheet(sheet).cell(r,c).value      #Actual Action
+        #print(action)
+    except Exception as e:
+        print(e)
+        #client.login() (here better?)
+        getCell(sheet, r, c, sheetName)
 
 
 #-------FUN COMMANDS--------------
