@@ -30,6 +30,11 @@ client.remove_command('help')
 scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
 creds = ServiceAccountCredentials.from_json_keyfile_name("usertanks-301e55f761c4.json", scope)
 Client = gspread.authorize(creds)
+while(True):
+    #SOME CODE THAT'S BEING EXECUTED 24/7 (MY JUST APPENDS TO SPREADSHEET)
+    if(time.time() - gettime > 60* 59):
+        client.login()
+        gettime = time.time()
 
 
 #-------FUN COMMANDS--------------
