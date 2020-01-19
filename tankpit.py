@@ -142,7 +142,7 @@ def award_string(seq: list) -> str:
     awards = [emoji_set[i][award] for i,award in enumerate(seq)]
     return ''.join(awards)
 @client.command(pass_context=True)
-async def tp(ctx, tank:str args*):
+async def tp(args* ctx, tank:str):
     async with aiohttp.ClientSession()as session:
         response = await session.get(f'https://tankpit.com/api/find_tank?name={tank}')
         resp_json = await response.json()
