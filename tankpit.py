@@ -145,6 +145,7 @@ def award_string(seq: list) -> str:
 async def tp(ctx, tank:str):
     async with aiohttp.ClientSession()as session:
         response = await session.get(f'https://tankpit.com/api/find_tank?name={tank}')
+        await asyncio.sleep(2)
         resp_json = await response.json()
         ids = resp_json[0]['tank_id']
         NAME = resp_json[0]['name']
