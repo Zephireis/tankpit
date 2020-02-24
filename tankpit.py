@@ -148,8 +148,11 @@ async def tp(ctx, tank:str):
         await asyncio.sleep(2)
         resp_json = await response.json()
         ids = resp_json[0]['tank_id']
+        await asyncio.sleep(2)
         NAME = resp_json[0]['name']
+        await asyncio.sleep(2)
         awards = award_string(resp_json[0]['awards'])
+        await asyncio.sleep(2)
         embed = discord.Embed(title=f'{NAME} {awards}', description="", color=0x18e728)
         embed.set_footer(text='use command .id'f' {ids}'' for indepth tank stats')
     async with aiohttp.ClientSession()as sess:
@@ -157,20 +160,28 @@ async def tp(ctx, tank:str):
         resp = await respons.json()
         try:
             time = resp["map_data"]["World"]["time_played"]
+            await asyncio.sleep(2)
         except:
             embed.set_footer(text="Players 'World' Stats 'time played' not set to public")
+            await asyncio.sleep(2)
         try:
             ranks = resp["map_data"]["World"]["rank"]
+            await asyncio.sleep(2)
         except:
             embed.set_footer(text="Players 'World' Stats 'rank' not set to public")
+            await asyncio.sleep(2)
         try:
             kills = resp["map_data"]["World"]["destroyed_enemies"]
+            await asyncio.sleep(2)
         except:
             embed.set_footer(text="Players 'World' Stats 'kills' not set to public")
+            await asyncio.sleep(2)
         try:
             deac = resp ["map_data"]["World"]["deactivated"]
+            await asyncio.sleep(2)
         except:
             embed.set_footer(text="Players 'World' Stats 'deactivated' not set to public")
+            await asyncio.sleep(2)
 
 
         lastplayed =  resp.get("last_played", "\u200b")
@@ -184,39 +195,51 @@ async def tp(ctx, tank:str):
 
         try:
             cups = resp['user_tournament_victories'] ['bronze']
+            await asyncio.sleep(2)
         except KeyError:
             a = "<:B_Cup_New:476303841562853377>x0"
         try:
             cups1 = resp['user_tournament_victories'] ['silver']
+            await asyncio.sleep(2)
         except:
             b= "<:S_Cup_New:476303857924833290>x0"
         try:
             cups2 = resp['user_tournament_victories'] ['gold']
+            await asyncio.sleep(2)
         except:
             c = "<:G_Cup_New:476303868486221824>x0"
 
         try:
             embed.add_field(name="Time Played", value=f'{time}{space}', inline=True)
+            await asyncio.sleep(2)
         except:
             embed.add_field(name="Time Played", value="\u200b", inline=True)
+            await asyncio.sleep(2)
         try:
             embed.add_field(name="Rank", value=f'{ranks}{space}', inline=True)
+            await asyncio.sleep(2)
         except:
             embed.add_field(name="Rank", value=f'\u200b', inline=True)
+            await asyncio.sleep(2)
         try:
             embed.add_field(name="Kills", value=f'{kills}{space}', inline=True)
+            await asyncio.sleep(2)
         except:
             embed.add_field(name="Kills", value='\u200b', inline=True)
         try:
             embed.add_field(name="Deaths", value=f'{deac}{space}', inline=True)
+            await asyncio.sleep(2)
         except:
             embed.add_field(name="Deaths", value='\u200b', inline=True)
+            await asyncio.sleep(2)
         try:
             embed.add_field(name="Cups", value=f'<:B_Cup_New:476303841562853377>x{cups}<:S_Cup_New:476303857924833290>x{cups1}<:G_Cup_New:476303868486221824>x{cups2}{space}', inline=True)
+            await asyncio.sleep(2)
         except:
             embed.add_field(name="Cups", value=f"{a}{b}{c}", inline=True)
 
         embed.add_field(name="Last played", value=resp.get("last_played", "\u200b"), inline=True)
+        await asyncio.sleep(2)
 
         await client.say(embed=embed)
 
