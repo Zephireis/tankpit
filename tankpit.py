@@ -30,6 +30,7 @@ client.remove_command('help')
 
 scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
 creds = ServiceAccountCredentials.from_json_keyfile_name("usertanks-301e55f761c4.json", scope)
+creds.refresh(httplib2.Http()) 
 Client = gspread.authorize(creds)
 
 def getCell(sheet, r, c, sheetName='profile'):
