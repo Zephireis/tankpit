@@ -827,6 +827,7 @@ async def mytanks(ctx):
     else:
         async with aiohttp.ClientSession()as session1:
             response1 = await session1.get(f'https://tankpit.com/api/find_tank?name={tank0}')
+            await asyncio.sleep(1)
             resp_json1 = await response1.json()
             NAME1 = resp_json1[0]['name']
             awards1 = award_string(resp_json1[0]['awards'])
@@ -841,6 +842,7 @@ async def mytanks(ctx):
     else:
         async with aiohttp.ClientSession()as session2:
             response2 = await session2.get(f'https://tankpit.com/api/find_tank?name={tank1}')
+            await asyncio.sleep(1)
             resp_json2 = await response2.json()
             NAME2 = resp_json2[0]['name']
             awards2 = award_string(resp_json2[0]['awards'])
@@ -854,6 +856,7 @@ async def mytanks(ctx):
     else:
         async with aiohttp.ClientSession()as session3:
             response3 = await session3.get(f'https://tankpit.com/api/find_tank?name={tank2}')
+            await asyncio.sleep(1)
             resp_json3 = await response3.json()
             NAME3 = resp_json3[0]['name']
             awards3 = award_string(resp_json3[0]['awards'])
@@ -868,6 +871,7 @@ async def mytanks(ctx):
     else:
         async with aiohttp.ClientSession()as session4:
             response4 = await session4.get(f'https://tankpit.com/api/find_tank?name={tank3}')
+            await asyncio.sleep(1)
             resp_json4 = await response4.json()
             NAME4 = resp_json4[0]['name']
             awards4 = award_string(resp_json4[0]['awards'])
@@ -881,6 +885,7 @@ async def mytanks(ctx):
     else:
         async with aiohttp.ClientSession()as session5:
             response5 = await session5.get(f'https://tankpit.com/api/find_tank?name={tank4}')
+            await asyncio.sleep(1)
             resp_json5 = await response5.json()
             NAME5 = resp_json5[0]['name']
             awards5 = award_string(resp_json5[0]['awards'])
@@ -895,6 +900,7 @@ async def mytanks(ctx):
     else:
         async with aiohttp.ClientSession()as session6:
             response6 = await session6.get(f'https://tankpit.com/api/find_tank?name={tank5}')
+            await asyncio.sleep(1)
             resp_json6 = await response6.json()
             NAME6 = resp_json6[0]['name']
             awards6 = award_string(resp_json5[0]['awards'])
