@@ -950,7 +950,7 @@ async def on_message(message):
 
 @client.command(name='alertson')
 async def alerts_on():
-    embed=discord.Embed(title="Alerts have been enabled 🔊", description="",  color =0x7d2789)
+    embed=discord.Embed(title="Tournament Alerts have been enabled 🔊", description="",  color =0x7d2789)
     await client.say(embed=embed)
 
 @client.command(name='alertsoff')
