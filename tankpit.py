@@ -1014,8 +1014,8 @@ async def update_stats():
                 await client.send_message(channel, embed=embed)
             else:
                 pass
-            await asyncio.sleep(10)
+            await asyncio.sleep(60)
 
 
-
+client.loop.create_task(update_stats())
 client.run(TOKEN)
