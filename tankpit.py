@@ -1002,7 +1002,7 @@ async def update_stats():
     while not client.is_closed:
         async with aiohttp.ClientSession()as sess1:
             embed=discord.Embed(title="This is just a test let @GeneralSick know if you got the notification ", description="type alertson for future ping notification",  color =0x7d2789)
-            channel = client.get_channel('476221292341886979')
+            channel = client.get_channel('700094318714683484')
             response = await sess1.get('https://tankpit.com/api/upcoming_tournaments')
             resp = await response.json()
             tourn = resp[0]['start_time_utc'][14]
@@ -1010,11 +1010,11 @@ async def update_stats():
             time = tourn + tourn2
             #embed.add_field(name="Start Time", value=resp[0]['start_time_utc'], inline=True)
             if "00" in time:
-                await client.send_message(channel, '<@&590310966856646657>')
+                await client.send_message(channel, '<@&699418231131078716')
                 await client.send_message(channel, embed=embed)
             else:
                 pass
-            await asyncio.sleep(6)
+            await asyncio.sleep(60)
 
 
 
