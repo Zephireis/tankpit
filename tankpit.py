@@ -995,27 +995,6 @@ async def on_member_remove(member):
 
 @client.event
 async def on_ready():
-    embed = discord.Embed(title="", description="",  color =0xff0000)
     print("logged in as" + client.user.name)
-async def update_stats():
-    await client.wait_until_ready()
-    while not client.is_closed:
-        async with aiohttp.ClientSession()as sess1:
-            embed=discord.Embed(title="This is just a test let @GeneralSick know if you got the notification ", description="type alertson for future ping notification",  color =0x7d2789)
-            channel = client.get_channel('700094318714683484')
-            response = await sess1.get('https://tankpit.com/api/upcoming_tournaments')
-            resp = await response.json()
-            tourn = resp[0]['start_time_utc'][14]
-            tourn2 = resp[0]['start_time_utc'][15]
-            time = tourn + tourn2
-            #embed.add_field(name="Start Time", value=resp[0]['start_time_utc'], inline=True)
-            if "15" in time:
-                await client.send_message(channel, '<@&699418231131078716>')
-                await client.send_message(channel, embed=embed)
-            else:
-                pass
-            await asyncio.sleep(59)
 
-
-client.loop.create_task(update_stats())
 client.run(TOKEN)
