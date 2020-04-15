@@ -1009,12 +1009,12 @@ async def update_stats():
             tourn2 = resp[0]['start_time_utc'][15]
             time = tourn + tourn2
             #embed.add_field(name="Start Time", value=resp[0]['start_time_utc'], inline=True)
-            if "00" in time:
+            if "15" in time:
                 await client.send_message(channel, '<@&699418231131078716>')
                 await client.send_message(channel, embed=embed)
             else:
                 pass
-            await asyncio.sleep(60)
+            await asyncio.sleep(59)
 
 
 client.loop.create_task(update_stats())
