@@ -1010,7 +1010,7 @@ async def update_stats():
             time = tourn + tourn2
             #embed.add_field(name="Start Time", value=resp[0]['start_time_utc'], inline=True)
             if "00" in time:
-                await client.send_message(channel, '<@&699418231131078716')
+                await client.send_message(channel, '<@&699418231131078716>')
                 await client.send_message(channel, embed=embed)
             else:
                 pass
