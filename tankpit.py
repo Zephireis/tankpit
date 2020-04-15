@@ -983,11 +983,11 @@ async def clear(ctx, amount=1):
 
 @client.event
 async def on_member_remove(member):
-    embed=discord.Embed(title="Has left the field", description="",  color =0x7d2789)
     server = member.server
     channel = discord.utils.get(member.server.channels, name="general")
     message = '{}'.format(member.mention)
-    await client.send_message(channel, message, embed=embed)
+    embed=discord.Embed(title=f" ", description=f"{message} has left the field",  color =0x7d2789)
+    await client.send_message(channel, embed=embed)
 
 #-----Bot Status-----------------------
 
