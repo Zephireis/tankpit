@@ -1000,8 +1000,9 @@ async def on_ready():
     await client.change_presence(game=Game(name="TankPit"))
     while True:
         async with aiohttp.ClientSession()as sess1:
-            embed=discord.Embed(title="Tournament starting soon, prepare for battle! ", description=".alertson to recive notifications",  color =0x7d2789)
-            channel = client.get_channel('311890399767822359')
+            embed=discord.Embed(title="Tournament starting soon, prepare for battle! ", description="",  color =0x7d2789)
+            embed.set_footer(text='.alerts on to recieve notifcations .alertsoff to mute notifcations')
+            channel = client.get_channel('476221292341886979')
             response = await sess1.get('https://tankpit.com/api/upcoming_tournaments')
             resp = await response.json()
             tourn = resp[0]['start_time_utc'][14]
@@ -1010,11 +1011,13 @@ async def on_ready():
             print(time)
             #embed.add_field(name="Start Time", value=resp[0]['start_time_utc'], inline=True)
             if "15" in time:
-                await client.send_message(channel, '<@&699418231131078716>')
+                await client.send_message(channel, '<@&590310966856646657>')
                 await client.send_message(channel, embed=embed)
             else:
                 pass
             await asyncio.sleep(59)
+
+        
 
 
 client.run(TOKEN)
