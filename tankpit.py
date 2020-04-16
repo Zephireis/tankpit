@@ -1013,9 +1013,10 @@ async def on_ready():
                 print("it worked lol")
                 await client.send_message(channel, '<@&590310966856646657>')
                 await client.send_message(channel, embed=embed)
+                await asyncio.sleep(60)
             else:
                 print("didnt work lmao")
-            await asyncio.sleep(10)
+            await asyncio.sleep(25)
 
         
 
