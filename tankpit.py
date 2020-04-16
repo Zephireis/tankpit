@@ -993,29 +993,29 @@ async def on_member_remove(member):
 
 
 
+
 @client.event
 async def on_ready():
     embed = discord.Embed(title="", description="",  color =0xff0000)
     print("logged in as" + client.user.name)
-    await client.change_presence(game=Game(name="TankPit"))
     while True:
         async with aiohttp.ClientSession()as sess1:
-            embed=discord.Embed(title="Tournament starting soon, prepare for battle! ", description="",  color =0x7d2789)
+            embed=discord.Embed(title="Tournament starting, prepare for battle! ", description="",  color =0x7d2789)
             embed.set_footer(text='.alerts on to recieve notifcations .alertsoff to mute notifcations')
             channel = client.get_channel('476221292341886979')
             response = await sess1.get('https://tankpit.com/api/upcoming_tournaments')
             resp = await response.json()
-            tourn = resp[0]['start_time_utc'][14]
-            tourn2 = resp[0]['start_time_utc'][15]
-            time = tourn + tourn2
-            print(time)
-            #embed.add_field(name="Start Time", value=resp[0]['start_time_utc'], inline=True)
-            if "15" in time:
+            tourn = resp[0]['start_time_utc'][0:16] #DATE OF TOURNAMENT
+            print(tourn)
+            now = datetime.now() #TODAYS DATE and time
+            print(now)
+            if f'{now}'[0:16] in tourn:
+                print("it worked lol")
                 await client.send_message(channel, '<@&590310966856646657>')
                 await client.send_message(channel, embed=embed)
             else:
-                pass
-            await asyncio.sleep(59)
+                print("didnt work lmao")
+            await asyncio.sleep(10)
 
         
 
