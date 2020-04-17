@@ -1003,7 +1003,7 @@ async def on_ready():
         async with aiohttp.ClientSession()as sess1:
             embed=discord.Embed(title="Tournament starting, prepare for battle! ", description="",  color =0x7d2789)
             embed.set_footer(text='.alerts on to recieve notifcations .alertsoff to mute notifcations')
-            channel = client.get_channel('311890399767822359')
+            channel = client.get_channel('476221292341886979')
             response = await sess1.get('https://tankpit.com/api/upcoming_tournaments')
             resp = await response.json()
             tourn = resp[0]['start_time_utc'][0:16] #DATE OF TOURNAMENT
@@ -1012,12 +1012,12 @@ async def on_ready():
             print(now)
             if f'{now}'[0:16] in tourn:
                 print("it worked lol")
-                await client.send_message(channel, '<@&699418231131078716>')
+                await client.send_message(channel, '<@&590310966856646657>')
                 await client.send_message(channel, embed=embed)
                 await asyncio.sleep(60)
             else:
                 print("didnt work lmao")
-            await asyncio.sleep(25)
+            await asyncio.sleep(10)
 
         
 
