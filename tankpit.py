@@ -1004,12 +1004,13 @@ async def on_ready():
             embed=discord.Embed(title="Tournament starting, prepare for battle! ", description="",  color =0x7d2789)
             embed.set_footer(text='.alerts on to recieve notifcations .alertsoff to mute notifcations')
             channel = client.get_channel('476221292341886979')
+            channe2 = client.get_channel('468277182863769600')
             response = await sess1.get('https://tankpit.com/api/upcoming_tournaments')
             resp = await response.json()
             try:
                 tourn = resp[0]['start_time_utc'][0:16] #DATE OF TOURNAMENT
             except Exception as error:
-                print(repr(error))
+                await client.send_message(repr(channel2, error))
             print(tourn)
             now = datetime.now() #TODAYS DATE and time
             print(now)
