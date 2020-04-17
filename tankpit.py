@@ -1023,6 +1023,6 @@ async def on_ready():
             await asyncio.sleep(10)
 
         
-
+#update
 
 client.run(TOKEN)
