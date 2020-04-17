@@ -1010,7 +1010,7 @@ async def on_ready():
             try:
                 tourn = resp[0]['start_time_utc'][0:16] #DATE OF TOURNAMENT
             except Exception as error:
-                await client.send_message(repr(channel2, error))
+               print(repr(error))
             print(tourn)
             now = datetime.now() #TODAYS DATE and time
             print(now)
