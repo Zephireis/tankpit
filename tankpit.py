@@ -1004,7 +1004,7 @@ async def on_ready():
             embed=discord.Embed(title="Tournament starting, prepare for battle! ", description="",  color =0x7d2789)
             embed.set_footer(text='.alerts on to recieve notifcations .alertsoff to mute notifcations')
             channel = client.get_channel('476221292341886979')
-            channe2 = client.get_channel('468277182863769600')
+            channel2 = client.get_channel('468277182863769600')
             response = await sess1.get('https://tankpit.com/api/upcoming_tournaments')
             resp = await response.json()
             try:
