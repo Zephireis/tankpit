@@ -1006,7 +1006,10 @@ async def on_ready():
             channel = client.get_channel('476221292341886979')
             response = await sess1.get('https://tankpit.com/api/upcoming_tournaments')
             resp = await response.json()
-            tourn = resp[0]['start_time_utc'][0:16] #DATE OF TOURNAMENT
+            try:
+                tourn = resp[0]['start_time_utc'][0:16] #DATE OF TOURNAMENT
+            except Exception as error:
+                print(repr(error))
             print(tourn)
             now = datetime.now() #TODAYS DATE and time
             print(now)
