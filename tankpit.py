@@ -1011,7 +1011,7 @@ async def on_ready():
                 tourn = resp[0]['start_time_utc'][0:16] #DATE OF TOURNAMENT
             except Exception as error:
                print(repr(error))
-            print(f'{tourn}'[0:16)
+            print(f'{tourn}'[0:16])
             now = datetime.now() #TODAYS DATE and time
             print(now)
             if f'{now}'[0:16] in tourn:
