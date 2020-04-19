@@ -1009,7 +1009,7 @@ async def on_ready():
             try:
                 tourn = resp[0]['start_time_utc'][0:16] #DATE OF TOURNAMENT
                 print(tourn)
-                await asyncio.sleep(10)
+                await asyncio.sleep(300)
             except KeyError:
                 tourn = "Hiya"
                 print(tourn)
