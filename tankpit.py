@@ -1021,7 +1021,7 @@ async def on_ready():
                 await asyncio.sleep(60)
             else:
                 print("didnt work lmao")
-            await asyncio.sleep(10)
+            await asyncio.sleep(30)
        
 #updatee
 
