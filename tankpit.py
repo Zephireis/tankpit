@@ -1009,12 +1009,16 @@ async def on_ready():
             channel = client.get_channel('476221292341886979')
             response = await sess1.get('https://tankpit.com/api/upcoming_tournaments')
             resp = await response.json()
-            tourn = resp[0]['start_time_utc'][0:16] #DATE OF TOURNAMENT
+            try:
+                tourn = resp[0]['start_time_utc'][0:16] #DATE OF TOURNAMENT
+            except KeyError:
+                return
+                await asyncio.sleep(5)
             print(tourn)
             now = datetime.now() #TODAYS DATE and time
             diff = now - datetime.strptime(tourn, "%Y-%m-%d %H:%M")
             print(now)
-            if diff.seconds < 0*60 in f'{tourn}':
+            if diff.seconds < 15*60 in f'{tourn}':
                 print("it worked lol")
                 await client.send_message(channel, '<@&699418231131078716>')
                 await client.send_message(channel, embed=embed)
