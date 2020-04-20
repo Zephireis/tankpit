@@ -1000,7 +1000,7 @@ async def on_ready():
     embed = discord.Embed(title="", description="",  color =0xff0000)
     print("logged in as" + client.user.name)
     embed=discord.Embed(title="Tournament starting, prepare for battle! ", description="",  color =0x7d2789)
-    channel = client.get_channel('476221292341886979')
+    channel = client.get_channel('701598179497476147')
     embed.set_footer(text='.alerts on to recieve notifcations .alertsoff to mute notifcations')
     while True:
         async with aiohttp.ClientSession()as sess1:
@@ -1016,7 +1016,7 @@ async def on_ready():
             print(now)
             if diff.seconds < 15*60:
                 print("it worked lol")
-                await client.send_message(channel, '<@&590310966856646657>')
+                await client.send_message(channel, '<@&699418231131078716>')
                 await client.send_message(channel, embed=embed)
                 await asyncio.sleep(60)
             else:
