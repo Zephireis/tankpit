@@ -1023,6 +1023,6 @@ async def on_ready():
                 print("didnt work lmao")
             await asyncio.sleep(10)
        
-#update
+#updatee
 
 client.run(TOKEN)
