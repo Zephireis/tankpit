@@ -1014,7 +1014,7 @@ async def on_ready():
             now = datetime.now() #TODAYS DATE and time
             diff = now - datetime.strptime(tourn, "%Y-%m-%d %H:%M")
             print(now)
-            if diff.seconds < 1*60 in tourn:
+            if diff.seconds < 0*60 in tourn:
                 print("it worked lol")
                 await client.send_message(channel, '<@&699418231131078716>')
                 await client.send_message(channel, embed=embed)
