@@ -936,12 +936,12 @@ async def on_message(message):
     if message.author == client.user:
         return
     if message.content == '.alertson':
-        role = discord.utils.get(message.server.roles, name='Active Duty')
+        role = discord.utils.get(message.server.roles, name='Active Units')
         await client.add_roles(message.author, role)
     if message.author == client.user:
         return
     if message.content == '.alertsoff':
-        role = discord.utils.get(message.server.roles, name='Active Duty')
+        role = discord.utils.get(message.server.roles, name='Active Units')
         await client.remove_roles(message.author, role)
     if message.content.startswith('$hey'):
         await client.send_message(message.channel, 'Say hello')
