@@ -997,11 +997,11 @@ async def on_ready():
                     await client.send_message(channel, embed=embed)
                     await asyncio.sleep(60)
                 except KeyError:
-                print(f'{now}'[1:16])
-                await client.send_message(channel, tourn)
-                await client.send_message(channel, embed=embed)
-                continue
-            await asyncio.sleep(10)
+                    print(f'{now}'[1:16])
+                    await client.send_message(channel, tourn)
+                    await client.send_message(channel, embed=embed)
+                    continue
+                await asyncio.sleep(3)
 
        
 #updatee
