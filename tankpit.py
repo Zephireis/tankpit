@@ -990,7 +990,10 @@ async def on_ready():
             tourn = resp[0]['start_time_utc'][0:16] #TIME OF TOURNAMENT
             now = datetime.now() #TODAYS TIME (NOW)
             print(now)
-            for now in tourn:
+            iff = now - datetime.strptime(tourn, "%Y-%m-%d %H:%M")
+            print(now)
+            for diff.seconds < 15*60 in f'{tourn}':
+                print("it worked lol")
                 try:
                     print("it worked lol")
                     await client.send_message(channel, '<@&468277182863769600>')
@@ -1001,7 +1004,7 @@ async def on_ready():
                     await client.send_message(channel, tourn)
                     await client.send_message(channel, embed=embed)
                     continue
-            await asyncio.sleep(3)
+                await asyncio.sleep(3)
 
        
 #updatee
