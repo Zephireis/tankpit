@@ -910,12 +910,7 @@ async def mytanks(ctx):
 
             await client.say(embed=embed)
 
-
-
 #-----------events-------------------
-
-
-
 @client.event#events = (function here) then function on the bottom to send out)
 async def on_member_join(member):
     embed=discord.Embed(title="Welcome to the TankPit HQ Discord", description=" ",  color =0x7d2789)
@@ -928,8 +923,6 @@ async def on_member_join(member):
     embed=discord.Embed(title="Has entered the field", description=" ",  color =0x389b2b)
     message = '{}'.format(member.mention)
     await client.send_message(channel, message, embed=embed)
-
-
 
 @client.event
 async def on_message(message):
@@ -960,12 +953,6 @@ async def alerts_off():
     await client.say(embed=embed)
 
 
-
-
-
-
-
-
 #-----MODERATION-----------------------
 @client.command(pass_context=True)
 async def clear(ctx, amount=1):
@@ -977,11 +964,6 @@ async def clear(ctx, amount=1):
         await client.delete_messages(messages)
         await client.say("Messages deleted")
 
-
-
-
-
-
 @client.event
 async def on_member_remove(member):
     server = member.server
@@ -992,40 +974,31 @@ async def on_member_remove(member):
 
 #-----Bot Status-----------------------
 
-
-
-
 @client.event
 async def on_ready():
     embed = discord.Embed(title="", description="",  color =0xff0000)
     print("logged in as" + client.user.name)
     embed=discord.Embed(title="Tournament starting, prepare for battle! ", description="",  color =0x7d2789)
-    channel = client.get_channel('701598179497476147')
+    channel = client.get_channel('476221292341886979')
     embed.set_footer(text='.alerts on to recieve notifcations .alertsoff to mute notifcations')
     while True:
         async with aiohttp.ClientSession()as sess1:
-            embed=discord.Embed(title="Tournament starting, prepare for battle! ", description="",  color =0x7d2789)
-            embed.set_footer(text='.alerts on to recieve notifcations .alertsoff to mute notifcations')
             channel = client.get_channel('476221292341886979')
             response = await sess1.get('https://tankpit.com/api/upcoming_tournaments')
             resp = await response.json()
-            try:
-                tourn = resp[0]['start_time_utc'][0:16] #DATE OF TOURNAMENT
-            except KeyError:
-                return
-                await asyncio.sleep(5)
-            print(tourn)
-            now = datetime.now() #TODAYS DATE and time
-            diff = now - datetime.strptime(tourn, "%Y-%m-%d %H:%M")
+            tourn = resp[0]['start_time_utc'][0:16] #TIME OF TOURNAMENT
+            now = datetime.now() #TODAYS TIME (NOW)
             print(now)
-            if diff.seconds < 15*60 in f'{tourn}':
+            if f'{now}'[0:16] == tourn:
                 print("it worked lol")
-                await client.send_message(channel, '<@&699418231131078716>')
+                await client.send_message(channel, '<@&468277182863769600>')
                 await client.send_message(channel, embed=embed)
                 await asyncio.sleep(60)
             else:
-                print("didnt work lmao")
-            await asyncio.sleep(30)
+                print(tourn)
+                await client.send_message(channel)
+                await client.send_message(channel, embed=embed)
+            await asyncio.sleep(3)
        
 #updatee
 
