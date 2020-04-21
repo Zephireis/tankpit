@@ -996,7 +996,7 @@ async def on_ready():
                 await asyncio.sleep(60)
             else:
                 print(tourn)
-                await client.send_message(channel)
+                await client.send_message(channel, tourn)
                 await client.send_message(channel, embed=embed)
             await asyncio.sleep(3)
        
