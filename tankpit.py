@@ -990,7 +990,7 @@ async def on_ready():
             tourn = resp[0]['start_time_utc'][0:16] #TIME OF TOURNAMENT
             now = datetime.now() #TODAYS TIME (NOW)
             print(now)
-            for f'{now}'[0:16] in tourn:
+            for now in tourn:
                 try:
                     print("it worked lol")
                     await client.send_message(channel, '<@&468277182863769600>')
