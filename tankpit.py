@@ -1010,6 +1010,6 @@ async def on_ready():
 
 
        
-#updatee
+#updateee
 
 client.run(TOKEN)
