@@ -990,18 +990,16 @@ async def on_ready():
             tourn = resp[0]['start_time_utc'][1:16] #TIME OF TOURNAMENT
             now = datetime.now() #TODAYS TIME (NOW)
             print(now)
-            for f'{now}'[1:16] in tourn:
-                try:
-                    print("it worked lol")
-                    await client.send_message(channel, '<@&468277182863769600>')
-                    await client.send_message(channel, embed=embed)
-                    await asyncio.sleep(60)
-                except KeyError:
-                    print(f'{now}'[1:16])
-                    await client.send_message(channel, tourn)
-                    await client.send_message(channel, embed=embed)
-                    continue
-                await asyncio.sleep(3)
+            if f'{now}'[1:16] == tourn:
+                print("it worked lol")
+                await client.send_message(channel, '<@&468277182863769600>')
+                await client.send_message(channel, embed=embed)
+                await asyncio.sleep(60)
+            else:
+                print(f'{now}'[1:16])
+                await client.send_message(channel, tourn)
+                await client.send_message(channel, embed=embed)
+            await asyncio.sleep(3)
 
        
 #updatee
