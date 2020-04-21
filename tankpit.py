@@ -983,7 +983,7 @@ async def on_ready():
     embed.set_footer(text='.alerts on to recieve notifcations .alertsoff to mute notifcations')
     while True:
         async with aiohttp.ClientSession()as sess1:
-            channel = client.get_channel('476221292341886979')
+            channel = client.get_channel('311890399767822359')
             try:
                 response = await sess1.get('https://tankpit.com/api/upcoming_tournaments')
                 resp = await response.json()
