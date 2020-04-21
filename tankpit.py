@@ -978,6 +978,31 @@ async def on_member_remove(member):
 async def on_ready():
     embed = discord.Embed(title="", description="",  color =0xff0000)
     print("logged in as" + client.user.name)
+    embed=discord.Embed(title="Tournament starting, prepare for battle! ", description="",  color =0x7d2789)
+    channel = client.get_channel('476221292341886979')
+    embed.set_footer(text='.alerts on to recieve notifcations .alertsoff to mute notifcations')
+    while True:
+        async with aiohttp.ClientSession()as sess1:
+            channel = client.get_channel('476221292341886979')
+            response = await sess1.get('https://tankpit.com/api/upcoming_tournaments')
+            resp = await response.json()
+            tourn = resp[0]['start_time_utc'][0:16] #TIME OF TOURNAMENT
+            print(tourn)
+            now = datetime.now() #TODAYS TIME (NOW)
+            todaytime = f'{now}'[0:16]
+            print(todaytime)
+            if todaytime in tourn:
+                try:
+                    print("it worked lol")
+                    await client.send_message(channel, '<@&468277182863769600>')
+                    await client.send_message(channel, embed=embed)
+                    await asyncio.sleep(60)
+                except KeyError:
+                    await client.send_message(channel, tourn)
+                    await client.send_message(channel, embed=embed)
+                    continue
+            await asyncio.sleep(5)
+    
 
 
        
