@@ -1006,6 +1006,7 @@ async def on_ready():
             else:
                 print("didnt work lmao")
             await asyncio.sleep(10)
+
     
 
 
