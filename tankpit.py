@@ -973,6 +973,13 @@ async def on_member_remove(member):
     await client.send_message(channel, embed=embed)
 
 #-----Bot Status-----------------------
+@client.event
+async def on_member_update(member, after):
+    clanname = after.roles[1].name
+    channel = client.get_channel('468277182863769600')
+    server = member.server
+    username = '{}'.format(member.mention)
+    await client.send_message(channel, f'{username} has been awarded {clanname} :Lightbulb: ')
 
 @client.event
 async def on_ready():
