@@ -1,3 +1,4 @@
-# TankpitBot grabs API Endpoints from player profiles and display player statistics into a chatroom channel (discord chat channel)
-This bot is for the community usage in discords from the game tankpit.com
+TankPit-ChatBot grabs Tankpit.com API Endpoints from Tankpit.com and displays player profiles statistics into a chatroom channel on member request (discord chat channel)
 
+Command Prefix is '.'
+Example #.tp GeneralSick
