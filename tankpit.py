@@ -21,7 +21,7 @@ from discord.ext.commands import Bot
 
 
 
-TOKEN = ""
+TOKEN = "" // I should use enviroment variables for security reasons.
 BOT_PREFIX = ".","?"
 
 
