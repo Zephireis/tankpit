@@ -1,4 +1,4 @@
-TankPit-ChatBot uses the Tankpit.com and Discord.com API's to display players game statistics into a chatchannel via request from a user in the chat channel (discord chat channel)
+TankPit-ChatBot uses the Tankpit.com and Discord.com API's to display players game statistics into a chat channel via request from a user in the chat channel (discord chat channel)
 
 The bot executes commands on request by a chat user. The request prefix is a period followed by an abbrevation for "tankpit" as "tp" and followed by the tank name. 
 Example provided below.
